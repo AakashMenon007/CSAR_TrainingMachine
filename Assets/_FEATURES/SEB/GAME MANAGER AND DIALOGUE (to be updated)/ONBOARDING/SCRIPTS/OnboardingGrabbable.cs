@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using Oculus.Interaction; // Meta Interaction SDK
+//using Oculus.Interaction; // Meta Interaction SDK
 
 namespace Amused.XR
 {
-    /// <summary>
+    /*/// <summary>
     /// Detects when a player grabs an object and proceeds to the next onboarding step after a delay.
     /// </summary>
     public class OnboardingGrabbable : MonoBehaviour
@@ -64,5 +64,5 @@ namespace Amused.XR
             Debug.Log("[OnboardingGrabbable] Grab hold delay over. Proceeding to next step.");
             onboardingController.ProceedToNextStep();
         }
-    }
+    }*/
 }
