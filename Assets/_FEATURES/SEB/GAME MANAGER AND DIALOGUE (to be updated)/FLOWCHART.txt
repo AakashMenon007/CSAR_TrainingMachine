@@ -1,0 +1,105 @@
+[GameManager]
+      │
+      ├─── (Start Onboarding)
+      │           │
+      │           ▼
+      │  [OnboardingController]
+      │           │
+      │           ├─── Initialize Onboarding Sequence
+      │           ├─── Spawn NPC Instructor
+      │           │         │
+      │           │         ▼
+      │           │  [NPCInstructorController]
+      │           │         │
+      │           │         ├─── Load audio clips from Resources
+      │           │         ├─── Trigger Animator ("Talk")
+      │           │         ├─── Play Voice audio
+      │           │         │
+      │           │         ▼
+      │           │  [TextPanelController (Singleton)]
+      │           │         │
+      │           │         ├─── SetActiveSpeaker(Transform npcHead)
+      │           │         ├─── SetText(string dialogueText)
+      │           │         └─── [Panel continuously follows & faces player]
+      │           │
+      │           ├─── Movement Instructions
+      │           ├─── Object Interaction Instructions
+      │           ├─── Explain Locomotion Panel Usage
+      │           ├─── Explain Answer Panel Usage
+      │           ├─── Explain Hands-Only Mode
+      │           │
+      │           └─── Check if user completed step, then SaveProgress()
+      │
+      ├─── (Scenario 1 or 2)
+      │           │
+      │           ▼
+      │   [ScenarioController]
+      │           │
+      │           ├─── Spawn Doctor, Interpreter, or Crowd NPC
+      │           │         │
+      │           │         ▼
+      │           │   [NPCDoctorController / NPCInterpreterController / CrowdNPCController]
+      │           │         │
+      │           │         ├─── Load audio clips from Resources
+      │           │         ├─── Trigger Animator ("Talk")
+      │           │         ├─── Play Voice audio
+      │           │         │
+      │           │         ▼
+      │           │   [TextPanelController (Singleton)]
+      │           │         │
+      │           │         ├─── SetActiveSpeaker(Transform npcHead)
+      │           │         ├─── SetText(string dialogueText)
+      │           │         └─── [Panel continuously follows & faces player]
+      │           │
+      │           ├─── Scenario-Specific Events (Doctor Questions, Interpreter Help)
+      │           ├─── Player Response Handling (Answer Selection)
+      │           ├─── Scene Transitions (Doctor Office, Waiting Room)
+      │           │
+      │           └─── ScenarioController checks user interaction, then SaveProgress()
+      │
+      ├─── (Questionnaire)
+      │           │
+      │           ▼
+      │   [QuestionnaireController]
+      │           │
+      │           ├─── Display questions
+      │           ├─── Collect answers
+      │           ├─── Submit results
+      │           │
+      │           └─── SaveProgress()
+      │
+      └─── (Credits / GameOver)
+
+
+      Scripts Involved & Responsibilities
+GameManager
+Controls main game states: MainMenu, Onboarding, Scenario1, Scenario2, Questionnaire, Credits, Paused
+Handles state transitions
+Saves and loads game progress
+OnboardingController
+Manages onboarding sequence
+Spawns NPC Instructor
+Plays dialogue and controls step progression
+Saves progress at each step
+ScenarioController
+Manages scenario gameplay
+Spawns Doctor, Interpreter, Crowd NPCs
+Tracks player responses
+Controls scene transitions
+Saves progress at critical points
+NPCInstructorController / NPCDoctorController / NPCInterpreterController / CrowdNPCController
+Controls NPC-specific behavior:
+Loads audio dynamically from Resources
+Triggers animations
+Plays dialogue audio
+Sets text panel dialogue
+TextPanelController (Singleton)
+Manages UI for text displayed above NPC’s head:
+Automatically follows NPC
+Smoothly rotates to face player
+Displays dialogue text dynamically
+QuestionnaireController
+Displays questions
+Collects answers
+Submits results
+Saves progress
