@@ -1,0 +1,54 @@
+﻿title: YarnInstr
+tags:
+---
+
+<<declare $repeat = false as bool>>
+
+    <<jump Introduction>>
+===
+
+title: Introduction
+tags:
+---
+
+Welcome to the Centre for Sustainable Aquatic Research, or CSAR, at Swansea University. I'm your virtual instructor, and I'll be guiding you through our recirculating aquaculture system facility. This state-of-the-art installation represents the cutting edge of sustainable aquaculture research, designed to cultivate aquatic organisms while minimizing environmental impact and maximizing resource efficiency.
+
+// Lets check out the facility equipments overview and look at the components one by one  
+    // <<jump Overview>>
+===
+
+title: Overview
+tags:
+---
+
+Let me orient you to what you're seeing. Our facility consists of two primary systems -
+System A, which you see on this side, is our broodstock system. This is where we maintain adult organisms for breeding purposes.
+System B, over here, is our larval and ongrow system. This is where we raise juvenile organisms through their developmental stages.
+Both systems operate on similar principles but are optimized for different life stages of the aquatic species we research. The blue pipes you see carry cleaned, oxygenated water to the tanks, while the red pipes carry water from the tanks to our filtration systems.
+
+===
+
+title: Maintenance
+tags:
+---
+
+Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintaince.
+//
+Daily monitoring of all water parameters. 
+Regular backwashing of sand filters
+Cleaning and calibration of sensors and probes
+System checks for leaks or component failures
+UV bulb replacement at recommended intervals
+Oxygen cylinder replacements
+
+===
+
+title: WaterFlow&Treatment
+tags:
+---
+
+First, you'd exit the tank through these outflow pipes and start your journey through our filtration system. Our process is designed to clean and condition the water to maintain optimal conditions for our organisms.
+The first stop is mechanical filtration. Here, we use drum filters and screens to capture and remove large solid waste particles. This is crucial for preventing larger debris from clogging later filtration stages.
+
+===
+
