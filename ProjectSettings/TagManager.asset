@@ -5,11 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dialogue Canvas
+  - Projectile
+  - Flame
+  - Water
+  - Destroyer
+  - Anchor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post Processing
   - Water
   - UI
   - 
