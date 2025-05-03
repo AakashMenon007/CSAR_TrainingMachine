@@ -26,24 +26,10 @@ System A, which you see on this side, is our broodstock system. This is where we
 System B, over here, is our larval and ongrow system. This is where we raise juvenile organisms through their developmental stages.
 Both systems operate on similar principles but are optimized for different life stages of the aquatic species we research. The blue pipes you see carry cleaned, oxygenated water to the tanks, while the red pipes carry water from the tanks to our filtration systems.
 
+    <<jump WaterIntakeProcessing>>
 ===
 
-title: Maintenance
-tags:
----//function to call --- at last to explain the tasks to be done.
-
-Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintaince.
-
-Daily monitoring of all water parameters. 
-Regular backwashing of sand filters
-Cleaning and calibration of sensors and probes
-System checks for leaks or component failures
-UV bulb replacement at recommended intervals
-Oxygen cylinder replacements
-
-===
-
-title: WaterIntake&Processing
+title: WaterIntakeProcessing
 tags:
 ---
 
@@ -116,5 +102,20 @@ tags:
 
 Water flow rate is a critical parameter in recirculating systems. Too slow, and waste products can accumulate; too fast, and it can stress the organisms or waste energy.
 On our checklist, you can see readings of 47 liters and 34 liters. These measurements help us ensure that all tanks are receiving adequate water exchange and that our filtration systems are handling appropriate volumes.
+===
+
+title: Maintenance
+tags:
+---//function to call --- at last to explain the tasks to be done.
+
+Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintaince.
+
+Daily monitoring of all water parameters. 
+Regular backwashing of sand filters
+Cleaning and calibration of sensors and probes
+System checks for leaks or component failures
+UV bulb replacement at recommended intervals
+Oxygen cylinder replacements
+
 ===
 
