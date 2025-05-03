@@ -3,12 +3,13 @@
   "sourceFiles": [
     "**/*.yarn"
   ],
+  "excludeFiles": [],
   "localisation": {
-    "en": {
-      "assets": "../Voice Overs"
-    },
     "es": {
       "strings": "Intro Project - es.csv"
+    },
+    "en": {
+      "assets": "..\\Voice Overs"
     }
   },
   "baseLanguage": "en",
