@@ -34,6 +34,10 @@ tags:
 ---
 
 First, we have fresh water intake that enters the system initially. Second, we have water that's continuously recirculated from the tanks. This dual source approach allows us to minimize water usage while maintaining optimal conditions. When water first enters our system, it undergoes initial mechanical filtration. This is a crucial first step that removes larger particles and debris before the water moves through the more sensitive components of our system.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: SystemPumps
@@ -44,6 +48,10 @@ We have three main pumps that work together to keep water flowing through the en
 Pump 1 is our primary circulation pump. It's responsible for moving water from the filtration systems back to the culture tanks. The organisms wouldn't receive the clean, oxygenated water they need to thrive.
 Pump 2 serves as our secondary circulation pump. It helps maintain proper flow rates and provides redundancy in case of issues with the primary pump. In aquaculture, redundancy is essential because even a brief interruption in water flow can be detrimental to our aquatic species.
 Pump 3 is our specialized skimmer pump. It directs water flow through our protein skimmer, which removes dissolved organic compounds from the water. These compounds, if left unchecked, could break down and compromise water quality.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: DrumFilter
@@ -52,6 +60,10 @@ tags:
 
 As water leaves the fish tanks, it carries solid waste like uneaten food and fish feces. The first treatment stage is this cylindrical component the drum filter.The drum filter is essentially a rotating screen that captures large solid particles while allowing water to flow through. As water enters this component, it passes through a fine mesh screen that traps particles as small as 40 microns.
 When the screen becomes clogged with captured solids, automatic spray nozzles activate to clean it, and the collected waste is flushed into a separate collection system.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: SandFilters
@@ -61,6 +73,10 @@ tags:
 These large cylindrical tanks you see here are our sand filters. They play a crucial role in removing fine particles from the water that might have passed through earlier filtration stages. Over time, these filters collect debris and require regular backwashing to clean them.
 The backwashing process reverses the water flow through the filter, flushing out trapped particles. This is controlled through a multiport valve on top of the filter that can be set to different positions, filter, backwash, or rinse.
 We regularly monitor the pressure in our sand filters. A reading around 0.7 is typical, but when pressure increases, it indicates the filter is becoming clogged and needs backwashing.
+
+<<if $repeat == true>>    
+    <<jump final>>
+<<endif>>
 ===
 
 title: ProteinSkimmer
@@ -69,6 +85,10 @@ tags:
 
 Next in the water treatment process is this tall cylinder - the protein skimmer. While the drum and sand filters remove solid particles, the protein skimmer targets dissolved organic compounds that would otherwise degrade water quality. The protein skimmer works through a process called foam fractionation. Dissolved organic compounds are attracted to the air-water interface of these bubbles.
 As the bubbles rise and accumulate at the top, they form a protein-rich foam that's collected and removed from the system. This process not only improves water clarity but also removes compounds before they can break down into ammonia.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: UVFilter
@@ -78,6 +98,10 @@ tags:
 The next is our ultraviolet sterilizers. They use UV light to kill microorganisms like bacteria, viruses, and parasites that might be present in the water.
 We track the running hours of our UV bulbs, and note it down in the daly checklist. This helps us know when to replace the bulbs, which gradually lose effectiveness over time. 
 The effectiveness of UV treatment depends on water clarity, which is why it's positioned after our filtration systems. Clear water allows the UV light to penetrate effectively and reach all microorganisms.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: OxygenCone
@@ -86,6 +110,10 @@ tags:
 
 The centerpiece of our oxygenation system is this oxygen cone. It's designed to efficiently dissolve pure oxygen into the water. We monitor oxygen levels throughout the system using these digital oxygen meters. The readings of 7.98 and 6.83 that you see on our checklist represent parts per million of dissolved oxygen, which is within the ideal range for most aquatic species.
 Our oxygen supply comes from these pressurized cylinders. We monitor cylinder pressure, you can see here it's reading 145 PSI to ensure we don't unexpectedly run out of oxygen.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: AirBlower
@@ -94,6 +122,10 @@ tags:
 
 In addition to the oxygen cone, this system uses an air blower to provide supplemental aeration. The air blowers that power our aeration system are designed for continuous operation. They draw in ambient air and deliver it through diffusers in the tanks, creating fine bubbles that maximize gas exchange efficiency.
 Our daily checklist confirms that aeration is active in all tanks. This is important not just for oxygen but also for preventing stratification of the water column and ensuring uniform conditions throughout each tank.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: FlowMeasurement
@@ -102,6 +134,10 @@ tags:
 
 Water flow rate is a critical parameter in recirculating systems. Too slow, and waste products can accumulate; too fast, and it can stress the organisms or waste energy.
 On our checklist, you can see readings of 47 liters and 34 liters. These measurements help us ensure that all tanks are receiving adequate water exchange and that our filtration systems are handling appropriate volumes.
+
+<<if $repeat == true>>
+    <<jump final>>
+<<endif>>
 ===
 
 title: Maintenance
@@ -110,12 +146,32 @@ tags:
 
 Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintaince.
 
-Daily monitoring of all water parameters. 
-Regular backwashing of sand filters
-Cleaning and calibration of sensors and probes
-System checks for leaks or component failures
-UV bulb replacement at recommended intervals
-Oxygen cylinder replacements
+Daily monitoring of all water parameters. Regular backwashing of sand filters. Cleaning and calibration of sensors and probes. System checks for leaks or component failures. UV bulb replacement at recommended intervals. Oxygen cylinder replacements.
 
 ===
 
+title: final
+tags:
+---
+
+Do you want to repeat any of the components? Or you can move to next stage.
+    <<set $repeat = true>>
+    -> Water Intake Processing
+        <<jump WaterIntakeProcessing>>
+    -> System Pumps
+        <<jump SystemPumps>>
+    -> Drum Filter
+        <<jump DrumFilter>>
+    -> Sand Filters
+        <<jump SandFilters>>
+    -> Protein Skimmer
+        <<jump ProteinSkimmer>>
+    -> UV Filter
+        <<jump UVFilter>>
+    -> Oxygen Cone
+        <<jump OxygenCone>>
+    -> Air Blower
+        <<jump AirBlower>>
+
+
+===
