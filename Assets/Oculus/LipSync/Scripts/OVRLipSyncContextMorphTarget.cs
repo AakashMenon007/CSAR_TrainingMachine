@@ -147,11 +147,11 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
         {
             for (int i = 0; i < OVRLipSync.VisemeCount; ++i)
             {
-                CheckVisemeKey(visemeTestKeys[i], i, 1);
+                CheckVisemeKey(visemeTestKeys[i], i, 100);
             }
         }
 
-        //CheckLaughterKey();
+        CheckLaughterKey();
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
                 // Viseme blend weights are in range of 0->1.0, we need to make range 100
                 skinnedMeshRenderer.SetBlendShapeWeight(
                     visemeToBlendTargets[i],
-                    frame.Visemes[i] * 1.0f);
+                    frame.Visemes[i] * 100.0f);
             }
         }
     }
@@ -188,7 +188,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
 
             skinnedMeshRenderer.SetBlendShapeWeight(
                 laughterBlendTarget,
-                laughterScore * 1.0f);
+                laughterScore * 100.0f);
         }
     }
 
@@ -217,7 +217,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     {
         if (Input.GetKeyDown(laughterKey))
         {
-            lipsyncContext.SetLaughterBlend(1);
+            lipsyncContext.SetLaughterBlend(100);
         }
         if (Input.GetKeyUp(laughterKey))
         {
