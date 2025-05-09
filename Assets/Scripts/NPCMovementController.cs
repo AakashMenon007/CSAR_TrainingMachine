@@ -1,83 +1,92 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
-using Yarn.Unity;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.AI;
+//using Yarn.Unity;
 
-public class NPCMovementController : MonoBehaviour
-{
-    public List<Transform> targetPoints;
-    private NavMeshAgent agent;
-    private DialogueRunner dialogueRunner;
-    private Animator animator;  
+//public class NPCMovementController : MonoBehaviour
+//{
+//    public List<Transform> componentTargets;
+//    private int currentIndex = 0;
+//    private NavMeshAgent agent;
+//    private Animator animator;
+//    private DialogueRunner dialogueRunner;
+//    private Transform player;
 
-    private int currentTargetIndex = 0;
-    private bool isMoving = false;
-    private bool isDialogueRunning = false;
+//    void Start()
+//    {
+//        agent = GetComponent<NavMeshAgent>();
+//        animator = GetComponent<Animator>();
+//        dialogueRunner = FindObjectOfType<DialogueRunner>();
+//        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        dialogueRunner = FindObjectOfType<DialogueRunner>();
-        animator = GetComponent<Animator>(); 
-        MoveToNextTarget();
-    }
+//        // Initialize animation
+//        animator.SetBool("move", false);
+//        animator.SetFloat("locomotion", 0f);
 
-    void Update()
-    {
-        if (isMoving && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if (!isDialogueRunning)
-            {
-                StartCoroutine(TriggerDialogueAtCurrentTarget());
-            }
-        }
+//        if (componentTargets.Count > 0)
+//        {
+//            MoveToNextTarget();
+//        }
+//    }
 
-        // Update animation based on movement
-        if (animator != null)
-        {
-            animator.SetBool("isWalking", agent.velocity.magnitude > 0.1f);
-        }
-    }
+//    void Update()
+//    {
+//        if (agent.pathPending || componentTargets.Count == 0 || currentIndex >= componentTargets.Count)
+//            return;
 
-    void MoveToNextTarget()
-    {
-        if (currentTargetIndex < targetPoints.Count)
-        {
-            agent.SetDestination(targetPoints[currentTargetIndex].position);
-            isMoving = true;
-            animator.SetBool("isTalking", false); // Stop talking
-        }
-        else
-        {
-            ShowFinalRepeatMenu();
-        }
-    }
+//        // Check if reached destination
+//        if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
+//        {
+//            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+//            {
+//                StartCoroutine(HandleDialogue());
+//            }
+//        }
+//        else
+//        {
+//            // Update movement animation
+//            animator.SetBool("move", true);
+//            animator.SetFloat("locomotion", agent.velocity.magnitude);
+//        }
+//    }
 
-    IEnumerator TriggerDialogueAtCurrentTarget()
-    {
-        isMoving = false;
-        isDialogueRunning = true;
+//    void MoveToNextTarget()
+//    {
+//        if (currentIndex >= componentTargets.Count) return;
 
-        // Stop walking, start talking
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isTalking", true);
+//        agent.SetDestination(componentTargets[currentIndex].position);
+//        animator.SetBool("move", true);
+//    }
 
-        string nodeName = targetPoints[currentTargetIndex].name;
-        dialogueRunner.StartDialogue(nodeName);
+//    IEnumerator HandleDialogue()
+//    {
+//        // Stop movement and animations
+//        agent.isStopped = true;
+//        animator.SetBool("move", false);
+//        animator.SetFloat("locomotion", 0f);
 
-        while (dialogueRunner.IsDialogueRunning)
-            yield return null;
+//        // Face the player
+//        Vector3 lookDirection = player.position - transform.position;
+//        lookDirection.y = 0;
+//        if (lookDirection != Vector3.zero)
+//        {
+//            transform.rotation = Quaternion.LookRotation(lookDirection);
+//        }
 
-        currentTargetIndex++;
-        isDialogueRunning = false;
-        MoveToNextTarget();
-    }
+//        // Start dialogue
+//        string nodeName = componentTargets[currentIndex].name;
+//        dialogueRunner.StartDialogue(nodeName);
 
-    void ShowFinalRepeatMenu()
-    {
-        Debug.Log("All components visited.");
-        animator.SetBool("isTalking", false);
-        // Show repeat UI (we'll make it follow NPC in Part 2)
-    }
-}
+//        // Wait for dialogue to complete
+//        while (dialogueRunner.IsDialogueRunning)
+//        {
+//            yield return null;
+//        }
+
+//        // Prepare for next movement
+//        currentIndex++;
+//        agent.isStopped = false;
+//        MoveToNextTarget();
+//    }
+//}
