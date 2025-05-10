@@ -22,10 +22,10 @@ tags:
 ---
 
 Let me orient you to what you're seeing. Our facility consists of two primary systems.  #line:over1
-System A, which you see on this side, is our broodstock system. This is where we maintain adult organisms for breeding purposes.    #line:over2
-System B, over here at back, is our larval and ongrow system. This is where we raise juvenile organisms through their developmental stages. #line:over3
+System A, which you see on this side, is our broodstock system. This is where we maintain adult organisms Tilapia which requires temperature between 20°C and 31.5°C, with optimal growth occurring between 26 and 28°C.    #line:over2
+System B, over here at back, is our larval and ongrow system. This is where we raise Shrimp and thrive best at 28°C, though they can grow well within a range of 25 to 30°C.    #line:over3
 Both systems operate on similar principles but are optimized for different life stages of the aquatic species we research. The blue pipes you see carry cleaned, oxygenated water to the tanks, while the red pipes carry water from the tanks to our filtration systems.   #line:over4
-
+Temperature is managed through two main methods, heat pumps that circulate water to and from the main sumps, maintaining water temperature, and air heat units that regulate room temperature to match the water setpoint. We check temperatures daily, and alarms notify technicians via pool phones if temperatures rise or fall beyond set limits. Drops in temperature are typically caused by failed heat pumps or malfunctioning air conditioning units.  #line:over5
 ===
 
 title: WaterIntakeProcessing
@@ -70,7 +70,7 @@ tags:
 ---
 
 These large cylindrical tanks you see here are our sand filters. They play a crucial role in removing fine particles from the water. Over time, these filters collect debris and require regular backwashing to clean them. #line:sand1
-The backwashing process reverses the water flow through the filter, flushing out trapped particles. //This is controlled through a multiport valve on top of the filter that can be set to different positions, filter, backwash, or rinse. #line:sand2
+The backwashing process reverses the water flow through the filter, flushing out trapped particles. This is controlled through a multiport valve on top of the filter that can be set to different positions, filtration mode, backwash mode, or rinse mode by rotating knob in 12 o'clock, 6 o'clock, 10 o'clock, positions respectively. #line:sand2
 We regularly monitor the pressure in our sand filters. A reading around 0.7 is typical, but when pressure increases, it indicates the filter is becoming clogged and needs backwashing. #line:sand3
 
 <<if $repeat == true>>    
@@ -83,7 +83,7 @@ tags:
 ---
 
 Next in the water treatment process is this tall cylinder - the protein skimmer. While the drum filters and sand filters remove solid particles, the protein skimmer targets dissolved organic compounds that would otherwise degrade water quality.The protein skimmer works through a process called foam fractionation.  #line:skimmer1
-Dissolved organic compounds are attracted to the air-water interface of these bubbles. As the bubbles rise and accumulate at the top, they form a protein-rich foam that's collected and removed from the system. This process not only improves water clarity but also removes compounds before they can break down into ammonia.  #line:skimmer2
+Dissolved organic compounds are attracted to the air-water interface of these bubbles. As the bubbles rise and accumulate at the top, they form a protein-rich foam that's collected and removed from the system. This process not only improves water clarity but also removes compounds before they can break down into ammonia. And this also acts as a gas exchange system removing some of the CO2 and replenishing O2.   #line:skimmer2
 
 <<if $repeat == true>>
     <<jump final>>
@@ -94,7 +94,7 @@ title: UVFilter
 tags:
 ---
 
-The next is our ultraviolet sterilizers. They use UV light to kill microorganisms like bacteria, viruses, and parasites that might be present in the water. We track the running hours of our UV bulbs, and note it down in the daly checklist. This helps us know when to replace the bulbs, which gradually lose effectiveness over time. #line:uv1
+The next is our ultraviolet sterilizers. They use UV light to kill microorganisms like bacteria, viruses, and parasites that might be present in the water. We track the running hours of our UV bulbs, and note it down in the daily checklist. This helps us know when to replace the bulbs, which gradually lose effectiveness over time. #line:uv1
 The effectiveness of UV treatment depends on water clarity, which is why it's positioned after our filtration systems. Clear water allows the UV light to penetrate effectively and reach all microorganisms.   #line:uv2
 
 <<if $repeat == true>>
@@ -142,9 +142,9 @@ title: Maintenance
 tags:
 ---//function to call --- at last to explain the tasks to be done.
 
-Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintaince.   #line:maintence1
+Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintenance.   #line:maintence1
 Daily monitoring of all water parameters. Regular backwashing of sand filters. Cleaning and calibration of sensors and probes. System checks for leaks or component failures. UV bulb replacement at recommended intervals. Oxygen cylinder replacements.   #line:maintence2
-You can check the readings of System Daily Check List in from of you.   #line:maintence3
+You can check the readings of System Daily Check List in the pad.   #line:maintence3
 ===
 
 title: Final
