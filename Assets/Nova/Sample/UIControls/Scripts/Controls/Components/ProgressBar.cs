@@ -18,7 +18,7 @@ namespace NovaSamples.UIControls
         const int MaxDecimals = 4;
 
         [SerializeField, Range(0, 400), Tooltip("The current PSI level.")]
-        private float psiLevel = 50f;
+        private float psiLevel = 50f; // Default to 50
 
         [Header("Progress Indicator")]
         [Tooltip("The UI Block 2D whose properties will be modified to indicate the progress state.")]
@@ -34,13 +34,12 @@ namespace NovaSamples.UIControls
         [SerializeField, Range(MinDecimals, MaxDecimals), Tooltip("The decimal precision of the text string.")]
         private int decimalCount = 0;
 
-        [Header("Knob Settings")]
-        [SerializeField, Tooltip("PSI change per knob step")]
-        private float stepSize = 5f;
-
         private StringBuilder textFormatBuilder = new StringBuilder();
         private string textFormat = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the PSI level and updates visuals accordingly.
+        /// </summary>
         public float PsiLevel
         {
             get => psiLevel;
@@ -57,17 +56,26 @@ namespace NovaSamples.UIControls
             UpdateProgressVisuals();
         }
 
+        /// <summary>
+        /// Updates the fill and text visuals.
+        /// </summary>
         private void UpdateProgressVisuals()
         {
             UpdateFillVisual();
             UpdateTextVisual();
         }
 
+        /// <summary>
+        /// Updates the <see cref="Fill"/> visual based on <see cref="PsiLevel"/>.
+        /// </summary>
         private void UpdateFillVisual()
         {
-            if (Fill == null) return;
+            if (Fill == null)
+            {
+                return;
+            }
 
-            float normalizedValue = PsiLevel / 400f;
+            float normalizedValue = PsiLevel / 400f; // Normalize PSI level to a range of 0 to 1.
 
             switch (Style)
             {
@@ -90,34 +98,51 @@ namespace NovaSamples.UIControls
             }
         }
 
+        /// <summary>
+        /// Updates the <see cref="Text"/> visual based on <see cref="PsiLevel"/>.
+        /// </summary>
         private void UpdateTextVisual()
         {
-            if (Text == null) return;
-
-            string format = (PsiLevel == 0) ? "0" : textFormat;
-            string newText = $"{string.Format(format, PsiLevel)} PSI";
-
-            if (Text.Text != newText)
+            if (Text == null)
             {
-                Text.Text = newText;
+                return;
             }
+
+            float displayedValue = PsiLevel;
+            string format = displayedValue == 0 ? "0" : textFormat;
+            string text = string.Format(format, displayedValue) + " PSI";
+
+            if (Text.Text == text)
+            {
+                return;
+            }
+
+            Text.Text = text;
         }
 
+        /// <summary>
+        /// Updates the desired text format based on the <see cref="decimalCount"/>.
+        /// </summary>
         private void UpdateTextFormat()
         {
             textFormatBuilder.Clear();
-            textFormatBuilder.Append("{0:0");
 
+            textFormatBuilder.Append("{0:0");
             if (decimalCount > 0)
             {
                 textFormatBuilder.Append(".");
-                textFormatBuilder.Append('0', decimalCount);
+                for (int i = 0; i < decimalCount; ++i)
+                {
+                    textFormatBuilder.Append("0");
+                }
             }
-
-            textFormatBuilder.Append('}');
+            textFormatBuilder.Append("}");
             textFormat = textFormatBuilder.ToString();
         }
 
+        /// <summary>
+        /// Public method to adjust the PSI level by a delta.
+        /// </summary>
         public void ChangePsi(float delta)
         {
             PsiLevel += delta;
@@ -129,14 +154,29 @@ namespace NovaSamples.UIControls
             PsiLevel = psiLevel;
         }
 
-        public void OnKnobIncrement(float _)
+        /// <summary>
+        /// Called when the wheel slider value changes.
+        /// </summary>
+        public void OnWheelValueChange(float sliderValue, float previousValue)
         {
-            ChangePsi(stepSize);
+            float delta = sliderValue - previousValue;
+            ChangePsi(delta);
         }
 
-        public void OnKnobDecrement(float _)
+        /// <summary>
+        /// Call this method with the amount of PSI to increase or decrease.
+        /// For example, OnKnobValueChanged(10) increases PSI by 10, OnKnobValueChanged(-5) decreases by 5.
+        /// Turning right (positive delta) increases PSI, left (negative) decreases PSI.
+        /// </summary>
+        /// <param name="deltaPsi">The amount of PSI to add (positive or negative).</param>
+        public void OnKnobValueChanged(float deltaPsi)
         {
-            ChangePsi(-stepSize);
+            Debug.Log("Delta PSI received: " + deltaPsi);
+
+            if (Mathf.Abs(deltaPsi) > 0.01f)
+            {
+                ChangePsi(deltaPsi); // Use as-is: right increases, left decreases
+            }
         }
     }
 }
