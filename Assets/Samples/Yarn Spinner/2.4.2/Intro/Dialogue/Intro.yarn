@@ -6,13 +6,100 @@ title: Start
 <<wait 2>>
 
 
-
 Congratulations on completing the Knowledge Building section! You've taken your first step. #line:1
-Now, let’s put that knowledge to the test with some hands-on practice in our virtual recirculating Multitrophic system.#line:2
-In this section, we’ll cover practical tasks like replacing a faulty water pump, balancing pH levels, engaging backup generators and sanitizing tanks.#line:3
-Don’t worry! I’ll guide you through each step, and you’ll have all the tools you need to succeed.#line:4
-Remember, the goal is to master these skills so you can handle real-life challenges with confidence.#line:5
-Ready to get started? Let’s dive in! #line:6
+Now, let’s test your skills with hands-on practice in our virtual recirculating Multitrophic system.#line:2
+
+In this session, we’ll tackle tasks like replacing a faulty pump, balancing pH, engaging backup generators, and sanitizing tanks.#line:3
+I’ll guide you every step of the way, so let’s dive in!#line:4
+
+<<wait 2>>
+
+Press the menu button on the left hand to access the checklist.#line:5
+Lets Start with sanitizing the tanks #line:6
+
+Grab the sanitizing can from the shelf.#line:7
+
+Identify tanks with decolorized water and sanitize them.#line:8
+
+Return the can and check off the task on the menu.#line:9
+
+Sanitization is essential for maintaining aquatic health. Once done, we’ll move on to the next challenge. Let’s get started!#line:10
+
 
 ===
 
+title: waterpump
+---
+Congratulations on completing the first task! #line:11
+Now, let’s move on to the next task, replacing a faulty water pump. #line:12
+
+<<wait 2>>
+Look at the light indicators in front of the three water pumps on each side of sections A and B. #line:13
+Green indicates the pump is functioning properly.Red means the pump is faulty and needs to be replaced. #line:14
+Locate the faulty pump, carefully remove it, and place it on the shelf. #line:15
+Next, grab a replacement pump from the shelf and attach it in place of the old one. #line:16
+Once you’ve replaced the pump, double-check its indicator to ensure it’s now green. #line:17
+When everything looks good, check off the task on your menu. #line:18
+Replacing faulty pumps is vital for maintaining the efficiency of the recirculating system. Let’s keep the system running smoothly! #line:19
+
+===
+
+title: oxygenlevel
+---
+
+Well done on completing the previous task! Now, let’s move on to the next critical task, regulating the oxygen level. #line:20
+<<wait 2>>
+Maintaining proper oxygen levels is essential for the health and survival of aquatic life. #line:21
+The oxygen pressure (PSI) in the system should always be kept between 30 and 40 PSI. #line:22
+Head over to the oxygen cylinder. You’ll see a wheel that allows you to regulate the oxygen level. #line:23
+Turn the wheel to the right to increase the oxygen level and Turn the wheel to the left to decrease it. #line:24
+Keep an eye on the gauge to ensure the PSI stays within the safe range. #line:25
+Once the oxygen level is properly regulated, check off this task on your menu. When you’re ready, we’ll move on to the next challenge. #line:26
+
+===
+
+title: tempcontrol
+---
+Great work on the previous task!Now, let’s focus on regulating the water temperature. #line:27
+<<wait 2>>
+Proper water temperature is crucial for aquatic life. The optimal range is 25 to 28°C. Head over to the control panel on the side, and locate the slider under Temperature Control. #line:28
+Adjust the slider until the red light indicator turns green, signaling that the temperature is within the ideal range. #line:29
+If you see the orange warning indicator, an alarm might sound to indicate a rise or drop in temperature. In that case, quickly adjust the slider to bring the temperature back to the safe range.#line:30
+Once the temperature is stable and the green light is on, check this task off your list. #line:31
+Maintaining the correct temperature ensures a healthy and thriving aquatic environment. Let’s keep it steady! #line:32
+
+===
+
+title:phcontrol
+---
+Now, it’s time to regulate the pH levels.#line:33
+<<wait 2>>
+Maintaining the correct pH is vital for the aquatic ecosystem. The optimal pH range should be between 6.5 and 7.5. #line:34
+Go to the control panel, and locate the pH knob.Turn the knob clockwise to increase the pH level.Turn it counterclockwise to decrease the pH level.#line:35
+Keep adjusting the knob until the red light indicator turns green, signaling that the pH is within the safe range. #line:36
+If you see the orange warning light, it might indicate an imbalance. Quickly adjust the knob to restore proper levels. #line:37
+Once the pH is stabilized and the green light is on, check this task off your list. #line:38
+Great work ensuring the water chemistry is balanced for optimal aquatic health! #line:39
+
+===
+title:backupgen
+---
+Great job so far! Let’s move on to a critical task, turning on the backup generators during a power outage.#line:40
+<<wait 2>>
+In the event of a power outage, you’ll hear an alarm signaling the situation.Quickly locate the generator at the corner of the room. #line:41
+To activate the backup generators Pull the stick downwards to turn them on, Check for the green light indicator to ensure the generators are running properly.#line:42
+Backup generators are essential to maintaining system functionality and the well-being of aquatic life during outages. #line:43
+Once the generators are on and stable, check this task off your list. You’re doing an amazing job keeping the system resilient under challenging conditions! #line:44
+
+===
+
+title: completion
+---
+Congratulations on completing all the tasks! You’ve done an excellent job mastering the skills needed to maintain a recirculating multitrophic system.#line:45
+<<wait 2>>
+Now, it’s time to take the next step. Head over to the blue hover to continue to the next scene. #line:46
+In the upcoming scenario, you’ll be on your own, tasked with completing similar challenges based on everything you’ve learned during this guided practice session.#line:47
+Trust in your abilities and apply your knowledge to handle the tasks effectively. You’ve got this! #line:48
+When you’re ready, step onto the blue hover to begin the next chapter of your training. #line:49
+
+===
