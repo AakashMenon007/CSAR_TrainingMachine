@@ -169,11 +169,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 2207a0025730e28459da58dfb0e9d65a, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -552,6 +552,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementTriggerZone: {fileID: 0}
   grabbableObject: {fileID: 0}
+  leverObject: {fileID: 0}
+  valveObject: {fileID: 0}
 --- !u!114 &334041532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,11 +1593,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cbd219b8d0e57fe45b3da4d95fed6a15, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 2207a0025730e28459da58dfb0e9d65a, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

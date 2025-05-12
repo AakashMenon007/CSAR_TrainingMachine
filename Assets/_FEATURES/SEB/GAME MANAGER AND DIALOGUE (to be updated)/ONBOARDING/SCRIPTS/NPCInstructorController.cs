@@ -35,6 +35,7 @@ namespace Amused.XR
         private bool audioFinished = false;
         private bool textFinished = false;
         private bool shouldAutoProceed = false;
+        private bool isAudioLoaded = false;
 
 
 
@@ -157,7 +158,14 @@ namespace Amused.XR
             {
                 audioClips[clip.name] = clip;
             }
+
+            isAudioLoaded = true;
             Debug.Log($"[NPCInstructorController] Loaded {audioClips.Count} audio files from Resources.");
+        }
+
+        public bool IsAudioReady()
+        {
+            return isAudioLoaded;
         }
 
         /// <summary>
