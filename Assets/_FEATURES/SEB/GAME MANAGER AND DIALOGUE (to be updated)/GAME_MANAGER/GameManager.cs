@@ -55,7 +55,7 @@ namespace Amused.XR
         private void Start()
         {
             LoadProgress();
-            SetState(GameState.MainMenu);
+            SetState(GameState.Onboarding);
         }
 
         #endregion
@@ -101,8 +101,8 @@ namespace Amused.XR
 
         public void StartOnboarding()
         {
-            menuPanel.SetActive(false);
-            answerPanel.SetActive(true);
+            //menuPanel.SetActive(false);
+           //answerPanel.SetActive(true);
             onboardingController.StartOnboarding();
             Debug.Log("[GameManager] Onboarding started.");
         }

@@ -20,6 +20,13 @@ namespace Amused.XR
 
         private void Start()
         {
+            Debug.Log($"[OnboardingController] stepsHandler: {stepsHandler}");
+            LoadOnboardingProgress();
+            if (stepsHandler != null)
+                stepsHandler.Initialize(instructorNPC, this);
+            else
+                Debug.LogWarning("[OnboardingController] stepsHandler is NULL!");
+
             LoadOnboardingProgress();
             stepsHandler.Initialize(instructorNPC, this); // Pass both references
         }

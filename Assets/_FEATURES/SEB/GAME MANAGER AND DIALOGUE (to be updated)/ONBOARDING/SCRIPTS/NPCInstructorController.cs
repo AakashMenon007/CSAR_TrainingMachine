@@ -65,8 +65,7 @@ namespace Amused.XR
         /// </summary>
         public void PlayDialogue(string lineKey, bool autoProceed)
         {
-            Debug.Log($"[NPCInstructorController] Attempting to play line: {lineKey}");
-
+            Debug.Log($"[NPCInstructorController] PlayDialogue START. instructorNPC: {this}, npcHead: {npcHead}, lineKey: {lineKey}");
             // Reset progression tracking
             audioFinished = false;
             textFinished = false;
@@ -74,6 +73,7 @@ namespace Amused.XR
 
             // Retrieve the dialogue text
             string text = OnboardingDialogueData.GetText(lineKey);
+            Debug.Log($"[NPCInstructorController] Retrieved text: {text}");
             bool isEstimated = false;
             float audioDuration = -1f;
 

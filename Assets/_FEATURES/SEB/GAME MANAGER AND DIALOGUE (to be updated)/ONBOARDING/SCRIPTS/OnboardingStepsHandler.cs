@@ -1,3 +1,4 @@
+using Amused.XR;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Amused.XR
 {
     /// <summary>
     /// Handles execution of each step in the onboarding process.
-    /// This keeps OnboardingController clean and modular.
+    /// Keeps OnboardingController clean and modular.
     /// </summary>
     public class OnboardingStepsHandler : MonoBehaviour
     {
@@ -13,43 +14,36 @@ namespace Amused.XR
         private OnboardingController onboardingController;
 
         [Header("Onboarding Objects")]
-        [SerializeField] private GameObject movementTriggerZone; // Assign in Inspector
-        [SerializeField] private GameObject grabbableObject; // Assign in Inspector
+        [SerializeField] private GameObject movementTriggerZone;
+        [SerializeField] private GameObject grabbableObject;
+        [SerializeField] private GameObject leverObject;
+        [SerializeField] private GameObject valveObject;
 
-        /// <summary>
-        /// Defines which steps should auto-progress after dialogue finishes.
-        /// </summary>
         private readonly Dictionary<int, bool> autoProceedSteps = new Dictionary<int, bool>
         {
-            { 0, true },  // Intro - Auto
-            { 1, true },  // Text panel explanation - Auto
-            { 2, true },  // Movement tutorial intro - Auto
-            { 3, false }, // Requires player to move
-            { 4, true },  // Teleportation info - Auto
-            { 5, true },  // Hand interaction explanation - Auto
-            { 6, true },  // Object interaction intro - Auto
-            { 7, false }, // Requires player to grab an object
-            { 8, true },  // Interaction success message - Auto
-            { 9, true },  // Scenario explanation - Auto
-            { 10, true }, // Interpreter explanation - Auto
-            { 11, true }, // Tracking info - Auto
-            { 12, false }, // Requires user to press Yes/No
-            { 13, true },  // Follow me message - Auto
-            { 14, false }, // Requires player to enter the waiting room
-            { 15, false }, // Requires player to open the door
-            { 16, false }, // Waits for scenario transition
-            { 17, true }   // Restart onboarding - Auto
+            { 0, true },   // 1.1 Intro
+            { 1, true },   // 1.2 Panel info
+            { 2, false },  // 1.3 UI button press
+            { 3, true },   // 2.1 Movement explanation
+            { 4, false },  // 2.2 Collider check
+            { 5, true },   // 3.1 Grip intro
+            { 6, false },  // 3.2 Grab check
+            { 7, false },  // 3.3 Lever check
+            { 8, false },  // 3.4 Valve check
+            { 9, true },   // 3.5 Ready for CSAR
+            { 10, true },  // 4.1 Scenario explained
+            { 11, false }, // 4.2 Choice (button press)
+            { 12, true },  // 4.4 Yes pressed
+            { 13, true }   // 4.3 No pressed (restart)
         };
 
         public void Initialize(NPCInstructorController npcController, OnboardingController controller)
         {
             instructorNPC = npcController;
             onboardingController = controller;
+            Debug.Log($"[OnboardingStepsHandler] Initialized.");
         }
 
-        /// <summary>
-        /// Executes the correct action based on the current onboarding step.
-        /// </summary>
         public void ExecuteStep(int step)
         {
             Debug.Log($"[OnboardingStepsHandler] Executing step {step}");
@@ -59,85 +53,64 @@ namespace Amused.XR
             switch (step)
             {
                 case 0:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_1a", shouldAutoProceed);
-                    SaveProgress();
+                    instructorNPC.PlayDialogue("onboarding_1a", shouldAutoProceed);
                     break;
                 case 1:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_1b", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_1b", shouldAutoProceed);
                     break;
                 case 2:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_2a", shouldAutoProceed);
-                    SaveProgress();
+                    instructorNPC.PlayDialogue("onboarding_1c", shouldAutoProceed);
+                    // Waits for UI button press
                     break;
                 case 3:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_2b", shouldAutoProceed);
-                    movementTriggerZone.SetActive(true); // Activate movement trigger area
+                    instructorNPC.PlayDialogue("onboarding_2a", shouldAutoProceed);
                     break;
                 case 4:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_2c", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_2b", shouldAutoProceed);
+                    movementTriggerZone.SetActive(true); // Enable collider trigger
                     break;
                 case 5:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_2d", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_3a", shouldAutoProceed);
                     break;
                 case 6:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_3a", shouldAutoProceed);
-                    SaveProgress();
+                    instructorNPC.PlayDialogue("onboarding_3b", shouldAutoProceed);
+                    grabbableObject.SetActive(true);
                     break;
                 case 7:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_3b", shouldAutoProceed);
-                    grabbableObject.SetActive(true); // Activate grabbable object
+                    instructorNPC.PlayDialogue("onboarding_3c", shouldAutoProceed);
+                    leverObject.SetActive(true);
                     break;
                 case 8:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_3c", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_3d", shouldAutoProceed);
+                    valveObject.SetActive(true);
                     break;
                 case 9:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_4a", shouldAutoProceed);
-                    SaveProgress();
+                    instructorNPC.PlayDialogue("onboarding_3e", shouldAutoProceed);
                     break;
                 case 10:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_4b", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_4a", shouldAutoProceed);
                     break;
                 case 11:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_4c", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_4b", shouldAutoProceed);
+                    // Awaits button choice
                     break;
                 case 12:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_5a", shouldAutoProceed);
-                    SaveProgress();
+                    instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
+                    //onboardingController.GoToNextStage(); // Example method
                     break;
                 case 13:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_5b_yes", shouldAutoProceed);
-                    break;
-                case 14:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_5c_yes", shouldAutoProceed);
-                    break;
-                case 15:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_5d_yes", shouldAutoProceed);
-                    break;
-                case 16:
-                    SaveProgress();
-                    break;
-                case 17:
-                    instructorNPC.PlayDialogue("onboarding_interpreter_5b_no", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_4b_no", shouldAutoProceed);
                     onboardingController.ResetOnboarding();
-                    SaveProgress();
                     break;
                 default:
-                    Debug.LogWarning("[OnboardingStepsHandler] Invalid step number.");
+                    Debug.LogWarning($"[OnboardingStepsHandler] Invalid step {step}");
                     break;
             }
         }
 
-        /// <summary>
-        /// Saves onboarding progress.
-        /// </summary>
         private void SaveProgress()
         {
-            Debug.LogWarning("[OnboardingStepsHandler] This pretends that the progress was saved.");
+            Debug.Log("[OnboardingStepsHandler] Simulated progress save.");
         }
-
-        /// <summary>
-        /// Activates the movement trigger area and waits for the player.
-        /// </summary>
-
     }
 }

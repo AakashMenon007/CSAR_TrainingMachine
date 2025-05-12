@@ -71,6 +71,7 @@ public class TextPanelController : MonoBehaviour
     /// </summary>
     public void DisplayTextWithTyping(string dialogueText, float audioDuration, bool isEstimated, System.Action onComplete)
     {
+        Debug.Log($"[TextPanelController] DisplayTextWithTyping called. lettersController: {lettersController}");
         if (lettersController != null)
         {
             lettersController.StartDisplayingText(dialogueText, audioDuration, isEstimated, onComplete);
