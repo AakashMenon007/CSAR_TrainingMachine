@@ -25,14 +25,14 @@ public class AirtableManager : MonoBehaviour
     // Data fields for recording information
     public string dateTime;
     public string Question1;
-    //public string Question2;
+    public string Question2;
     public string Question3;
     public string Question4;
-    //public string Question5;
+    public string Question5;
     public string Question6;
     public string Question7;
-    //public string Question8;
-    public string Question9;
+    public string Question8;
+    //public string Question9;
 
     // Method to create a new record in Airtable
     public void CreateRecord()
@@ -53,14 +53,14 @@ public class AirtableManager : MonoBehaviour
         string jsonFields = "{\"fields\": {" +
                                     "\"dateTime\":\"" + dateTime + "\", " +
                                     "\"Question1\":\"" + Question1 + "\", " +
-                                    "\"Question2\":\"" + "Question2" + "\", " +
+                                    "\"Question2\":\"" + Question2 + "\", " +
                                     "\"Question3\":\"" + Question3 + "\", " +
                                     "\"Question4\":\"" + Question4 + "\", " +
-                                    "\"Question5\":\"" + "Question5" + "\", " +
+                                    "\"Question5\":\"" + Question5 + "\", " +
                                     "\"Question6\":\"" + Question6 + "\", " +
                                     "\"Question7\":\"" + Question7 + "\", " +
-                                    "\"Question8\":\"" + "Question8" + "\", " +
-                                    "\"Question9\":\"" + Question9 + "\"" +
+                                    "\"Question8\":\"" + Question8 + "\", " +
+                                    "\"Question9\":\"" + "Question9" + "\"" +
                                     "}}";
 
         // Start the coroutine to send the API request
