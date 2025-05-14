@@ -100,6 +100,11 @@ namespace Amused.XR
             SaveOnboardingProgress();
             Debug.Log("[OnboardingController] Onboarding completed. Transitioning to next phase.");
         }
+
+        public int GetCurrentStep()
+        {
+            return currentStep;
+        }
     }
 }
 
