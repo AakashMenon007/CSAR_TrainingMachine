@@ -10,6 +10,7 @@ TagManager:
   - Water
   - Destroyer
   - Anchor
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Post Processing
   - Water
   - UI
-  - 
-  - 
+  - WaterTank
+  - Player
   - 
   - 
   - 

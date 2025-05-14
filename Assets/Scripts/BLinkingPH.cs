@@ -115,7 +115,7 @@ public class BlinkingPh : MonoBehaviour
         // Ensure the blinking indicator is reset to the default material
         blinkingIndicator.GetComponent<Renderer>().material = defaultBlinkingMaterial;
     }
-
+    
     private IEnumerator BlinkingRoutine()
     {
         Renderer blinkingRenderer = blinkingIndicator.GetComponent<Renderer>();
