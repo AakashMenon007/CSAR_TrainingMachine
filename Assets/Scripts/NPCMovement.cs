@@ -11,6 +11,9 @@ public class NPCMovement : MonoBehaviour
     public List<Transform> waypoints;
     public string playerTag = "Player";
 
+    [Header("Highlightable Objects")]
+    public List<GameObject> highlightObjects; // One per waypoint
+
     private NavMeshAgent agent;
     private NavMeshAgentAnimationSync animationSync;
     private DialogueRunner dialogueRunner;
@@ -57,11 +60,9 @@ public class NPCMovement : MonoBehaviour
     IEnumerator StartDialogueRoutine()
     {
         isDialoguePlaying = true;
-
-        // Stop agent movement
         animationSync.StopMoving();
 
-        // Face player
+        // Face the player
         if (player != null)
         {
             Vector3 direction = player.position - transform.position;
@@ -72,19 +73,34 @@ public class NPCMovement : MonoBehaviour
             }
         }
 
-        // Start dialogue
+        // Highlight the associated object
+        if (currentWaypoint < highlightObjects.Count)
+        {
+            var highlighter = highlightObjects[currentWaypoint].GetComponent<Highlighter>();
+            highlighter?.Highlight();
+        }
+
+        // Start Yarn dialogue
         string nodeName = waypoints[currentWaypoint].name;
         if (!dialogueRunner.IsDialogueRunning)
         {
             dialogueRunner.StartDialogue(nodeName);
         }
 
+        // Wait until dialogue ends
         while (dialogueRunner.IsDialogueRunning)
         {
             yield return null;
         }
 
-        // Continue to next waypoint
+        // Remove highlight
+        if (currentWaypoint < highlightObjects.Count)
+        {
+            var highlighter = highlightObjects[currentWaypoint].GetComponent<Highlighter>();
+            highlighter?.RemoveHighlight();
+        }
+
+        // Proceed to next
         currentWaypoint++;
         isDialoguePlaying = false;
 
