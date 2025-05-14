@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,24 +14,25 @@ namespace Amused.XR
         [SerializeField] private GameObject grabbableObject;
         [SerializeField] private GameObject leverObject;
         [SerializeField] private GameObject valveObject;
-        [SerializeField] private GameObject physicalButton;
+        [SerializeField] private GameObject yesButton;
+        [SerializeField] private GameObject noButton;
 
         private readonly Dictionary<int, bool> autoProceedSteps = new Dictionary<int, bool>
         {
             { 0, true },   // onboarding_1a
             { 1, true },   // onboarding_1b
             { 2, true },   // onboarding_2a
-            { 3, false },  // onboarding_2b (collider check)
-            { 4, false },  // onboarding_2c (button check)
+            { 3, false },  // onboarding_2b
+            { 4, false },  // onboarding_2c
             { 5, true },   // onboarding_3a
-            { 6, false },  // onboarding_3b (grab check)
-            { 7, false },  // onboarding_3c (lever check)
-            { 8, false },  // onboarding_3d (valve check)
+            { 6, false },  // onboarding_3b
+            { 7, false },  // onboarding_3c
+            { 8, false },  // onboarding_3d
             { 9, true },   // onboarding_3e
-            { 10, true },  // onboarding_4a
-            { 11, false }, // onboarding_4b (button check)
-            { 12, true },  // onboarding_4b_no
-            { 13, true }   // onboarding_4b_yes
+            {10, true },   // onboarding_4a
+            {11, false },  // onboarding_4b
+            {12, true },   // onboarding_4b_no
+            {13, true }    // onboarding_4b_yes
         };
 
         public void Initialize(NPCInstructorController npcController, OnboardingController controller)
@@ -60,7 +62,7 @@ namespace Amused.XR
                     break;
                 case 4:
                     instructorNPC.PlayDialogue("onboarding_2c", shouldAutoProceed);
-                    ActivateButton();
+                    yesButton.SetActive(true);
                     break;
                 case 5:
                     instructorNPC.PlayDialogue("onboarding_3a", shouldAutoProceed);
@@ -85,11 +87,11 @@ namespace Amused.XR
                     break;
                 case 11:
                     instructorNPC.PlayDialogue("onboarding_4b", shouldAutoProceed);
-                    ActivateButton();
+                    ActivateButtons();
                     break;
                 case 12:
                     instructorNPC.PlayDialogue("onboarding_4b_no", shouldAutoProceed);
-                    onboardingController.ResetOnboarding();
+                    StartCoroutine(ResetAfterDialogue());
                     break;
                 case 13:
                     instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
@@ -100,12 +102,16 @@ namespace Amused.XR
             }
         }
 
-        private void ActivateButton()
+        private void ActivateButtons()
         {
-            if (physicalButton != null)
-            {
-                physicalButton.SetActive(true);
-            }
+            if (yesButton != null) yesButton.SetActive(true);
+            if (noButton != null) noButton.SetActive(true);
+        }
+
+        private IEnumerator ResetAfterDialogue()
+        {
+            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
+            onboardingController.ResetOnboarding();
         }
     }
 }

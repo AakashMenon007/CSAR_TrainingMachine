@@ -6,26 +6,64 @@ namespace Amused.XR
     {
         public OnboardingController onboardingController;
 
+        public enum ButtonType { Yes, No }
+        public ButtonType buttonType;
+
+        [Tooltip("All steps where this button is allowed to work")]
+        public int[] validSteps;
+
         public void OnPressed()
         {
             if (onboardingController == null)
             {
-                Debug.LogWarning("[PhysicalButton] OnboardingController not assigned.");
+                Debug.LogWarning("[Button] OnboardingController not assigned.");
                 return;
             }
 
             int currentStep = onboardingController.GetCurrentStep();
 
-            if (currentStep == 5 || currentStep == 12)
+            if (!IsStepValid(currentStep))
             {
-                Debug.Log($"[PhysicalButton] Step {currentStep} valid — proceeding.");
-                onboardingController.ProceedToNextStep();
-                gameObject.SetActive(false);
+                Debug.Log($"[Button] Ignored press — current step is {currentStep}, not valid for this button.");
+                return;
             }
-            else
+
+            if (FindObjectOfType<NPCInstructorController>().DialogueIsActive)
             {
-                Debug.Log($"[PhysicalButton] Ignored press at step {currentStep}.");
+                Debug.Log("[Button] Ignored — NPC still speaking.");
+                return;
             }
+
+            switch (buttonType)
+            {
+                case ButtonType.Yes:
+                    if (currentStep == 12)
+                    {
+                        Debug.Log("[Button] YES.");
+                        FindObjectOfType<OnboardingStepsHandler>().ExecuteStep(13);
+                    }
+                    else
+                    {
+                        Debug.Log($"[Button] YES at step {currentStep} — proceeding normally.");
+                        onboardingController.ProceedToNextStep();
+                    }
+                    break;
+
+                case ButtonType.No:
+                    Debug.Log("[Button] NO — proceeding to step 13 (restart line).");
+                    onboardingController.ProceedToNextStep();
+                    break;
+            }
+
+            //gameObject.SetActive(false);
+        }
+
+        private bool IsStepValid(int step)
+        {
+            foreach (int valid in validSteps)
+                if (step == valid)
+                    return true;
+            return false;
         }
     }
 }

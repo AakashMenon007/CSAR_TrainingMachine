@@ -8,13 +8,13 @@ namespace Amused.XR
         private static readonly Dictionary<string, string> textLines = new Dictionary<string, string>
         {
             // --- Onboarding ---
-            { "onboarding_1a", "Welcome to the CSAR training machine onboarding stage. I'll be your guide through the experience." },
-            { "onboarding_1b", "This is your main text panel. It will display important information throughout the simulation." },
-            { "onboarding_2a", "Move around using the left stick, and rotate using the right one. Push right joystick backwards to turn around 180 degrees." },
-            { "onboarding_2b", "Move to the highlighted area to continue." },
-            { "onboarding_2c", "Well done. Now please press the big green button on the table to proceed." },
-            { "onboarding_3a", "Some objects in the environment can be grabbed using the grip button." },
-            { "onboarding_3b", "Try picking up the watering can from the shelf." },
+            { "onboarding_1a", "Welcome to the CSAR training machine onboarding stage. I'll be your guide through the experience." }, //0
+            { "onboarding_1b", "This is your main text panel. It will display important information throughout the simulation." }, //1
+            { "onboarding_2a", "Move around using the left stick, and rotate using the right one. Push right joystick backwards to turn around 180 degrees." }, //2
+            { "onboarding_2b", "Move to the highlighted area to continue." }, //3
+            { "onboarding_2c", "Well done. Now please press the big green button on the table to proceed." }, //4
+            { "onboarding_3a", "Some objects in the environment can be grabbed using the grip button." }, //5
+            { "onboarding_3b", "Try picking up the green cube from the table." }, //6
             { "onboarding_3c", "Nice job, levers work in similar way, try grabbing the lever and switch its position." },
             { "onboarding_3d", "Well done! Now, try grabbing the valve and rotate it." },
             { "onboarding_3e", "Great! Now you should be ready for the actual CSAR practice." },
