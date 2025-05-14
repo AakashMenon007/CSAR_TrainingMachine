@@ -22,6 +22,7 @@ limitations under the License.
 ************************************************************************************/
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class OVRLipSyncContextMorphTarget : MonoBehaviour
 {
@@ -83,30 +84,31 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     // Look for a lip-sync Context (should be set at the same level as this component)
     private OVRLipSyncContextBase lipsyncContext = null;
 
-
+    private float blendWeightMultiplier = 100.0f; 
     /// <summary>
     /// Start this instance.
     /// </summary>
     void Start()
     {
-        // morph target needs to be set manually; possibly other components will need the same
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Warehouse_Seb_System_Onboarding_OSH")
+        {
+            blendWeightMultiplier = 1.0f;
+        }
+
         if (skinnedMeshRenderer == null)
         {
-            Debug.LogError("LipSyncContextMorphTarget.Start Error: " +
-                "Please set the target Skinned Mesh Renderer to be controlled!");
+            Debug.LogError("LipSyncContextMorphTarget.Start Error: Please set the target Skinned Mesh Renderer!");
             return;
         }
 
-        // make sure there is a phoneme context assigned to this object
         lipsyncContext = GetComponent<OVRLipSyncContextBase>();
         if (lipsyncContext == null)
         {
-            Debug.LogError("LipSyncContextMorphTarget.Start Error: " +
-                "No OVRLipSyncContext component on this object!");
+            Debug.LogError("LipSyncContextMorphTarget.Start Error: No OVRLipSyncContext component!");
         }
         else
         {
-            // Send smoothing amount to context
             lipsyncContext.Smoothing = smoothAmount;
         }
     }
@@ -128,7 +130,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
             }
 
             // TEST visemes by capturing key inputs and sending a signal
-            CheckForKeys();
+           // CheckForKeys();
 
             // Update smoothing value
             if (smoothAmount != lipsyncContext.Smoothing)
@@ -147,7 +149,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
         {
             for (int i = 0; i < OVRLipSync.VisemeCount; ++i)
             {
-                CheckVisemeKey(visemeTestKeys[i], i, 100);
+                CheckVisemeKey(visemeTestKeys[i], i, (int)blendWeightMultiplier/*100*/);
             }
         }
 
@@ -164,9 +166,10 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
             if (visemeToBlendTargets[i] != -1)
             {
                 // Viseme blend weights are in range of 0->1.0, we need to make range 100
+                // We need to make both ranges then, it works different for the playerreadyme avatars
                 skinnedMeshRenderer.SetBlendShapeWeight(
                     visemeToBlendTargets[i],
-                    frame.Visemes[i] * 100.0f);
+                    frame.Visemes[i] * blendWeightMultiplier/*frame.Visemes[i] * 100.0f*/);
             }
         }
     }
@@ -188,7 +191,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
 
             skinnedMeshRenderer.SetBlendShapeWeight(
                 laughterBlendTarget,
-                laughterScore * 100.0f);
+                laughterScore * blendWeightMultiplier/*100*/);
         }
     }
 
