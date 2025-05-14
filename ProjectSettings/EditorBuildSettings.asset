@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/WareHouse_Inst_05.05.25.unity
     guid: 44886a4a83e87f84e88bbae838142477
-  - enabled: 1
+  - enabled: 0
     path: Assets/Start Menu.unity
     guid: 358aaaf1451c72b4eba321bd509ea9d3
+  - enabled: 1
+    path: Assets/Scenes/Assisment_Airtable.unity
+    guid: f38c57ea23198af429a48e799dc599b6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
