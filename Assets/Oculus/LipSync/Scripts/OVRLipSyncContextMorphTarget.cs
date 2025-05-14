@@ -84,7 +84,9 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     // Look for a lip-sync Context (should be set at the same level as this component)
     private OVRLipSyncContextBase lipsyncContext = null;
 
-    private float blendWeightMultiplier = 100.0f; 
+    private float blendWeightMultiplier = 100.0f;
+    private bool disableTestKeys = false;
+
     /// <summary>
     /// Start this instance.
     /// </summary>
@@ -94,6 +96,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
         if (currentScene == "Warehouse_Seb_System_Onboarding_OSH")
         {
             blendWeightMultiplier = 1.0f;
+            disableTestKeys = true;
         }
 
         if (skinnedMeshRenderer == null)
@@ -130,7 +133,10 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
             }
 
             // TEST visemes by capturing key inputs and sending a signal
-           // CheckForKeys();
+            if (!disableTestKeys)
+            {
+                CheckForKeys();
+            }
 
             // Update smoothing value
             if (smoothAmount != lipsyncContext.Smoothing)
