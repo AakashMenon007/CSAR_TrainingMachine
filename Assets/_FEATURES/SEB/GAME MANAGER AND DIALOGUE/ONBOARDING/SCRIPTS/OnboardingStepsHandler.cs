@@ -1,13 +1,8 @@
-using Amused.XR;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Amused.XR
 {
-    /// <summary>
-    /// Handles execution of each step in the onboarding process.
-    /// Keeps OnboardingController clean and modular.
-    /// </summary>
     public class OnboardingStepsHandler : MonoBehaviour
     {
         private NPCInstructorController instructorNPC;
@@ -18,37 +13,35 @@ namespace Amused.XR
         [SerializeField] private GameObject grabbableObject;
         [SerializeField] private GameObject leverObject;
         [SerializeField] private GameObject valveObject;
+        [SerializeField] private GameObject physicalButton;
 
         private readonly Dictionary<int, bool> autoProceedSteps = new Dictionary<int, bool>
         {
-            { 0, true },   // 1.1 Intro
-            { 1, true },   // 1.2 Panel info
-            { 2, false },  // 1.3 UI button press
-            { 3, true },   // 2.1 Movement explanation
-            { 4, false },  // 2.2 Collider check
-            { 5, true },   // 3.1 Grip intro
-            { 6, false },  // 3.2 Grab check
-            { 7, false },  // 3.3 Lever check
-            { 8, false },  // 3.4 Valve check
-            { 9, true },   // 3.5 Ready for CSAR
-            { 10, true },  // 4.1 Scenario explained
-            { 11, false }, // 4.2 Choice (button press)
-            { 12, true },  // 4.4 Yes pressed
-            { 13, true }   // 4.3 No pressed (restart)
+            { 0, true },   // onboarding_1a
+            { 1, true },   // onboarding_1b
+            { 2, true },   // onboarding_2a
+            { 3, false },  // onboarding_2b (collider check)
+            { 4, false },  // onboarding_2c (button check)
+            { 5, true },   // onboarding_3a
+            { 6, false },  // onboarding_3b (grab check)
+            { 7, false },  // onboarding_3c (lever check)
+            { 8, false },  // onboarding_3d (valve check)
+            { 9, true },   // onboarding_3e
+            { 10, true },  // onboarding_4a
+            { 11, false }, // onboarding_4b (button check)
+            { 12, true },  // onboarding_4b_no
+            { 13, true }   // onboarding_4b_yes
         };
 
         public void Initialize(NPCInstructorController npcController, OnboardingController controller)
         {
             instructorNPC = npcController;
             onboardingController = controller;
-            Debug.Log($"[OnboardingStepsHandler] Initialized.");
         }
 
         public void ExecuteStep(int step)
         {
-            Debug.Log($"[OnboardingStepsHandler] Executing step {step}");
-
-            bool shouldAutoProceed = autoProceedSteps.ContainsKey(step) && autoProceedSteps[step];
+            bool shouldAutoProceed = autoProceedSteps.TryGetValue(step, out var auto) && auto;
 
             switch (step)
             {
@@ -59,15 +52,15 @@ namespace Amused.XR
                     instructorNPC.PlayDialogue("onboarding_1b", shouldAutoProceed);
                     break;
                 case 2:
-                    instructorNPC.PlayDialogue("onboarding_1c", shouldAutoProceed);
-                    // Waits for UI button press
-                    break;
-                case 3:
                     instructorNPC.PlayDialogue("onboarding_2a", shouldAutoProceed);
                     break;
-                case 4:
+                case 3:
                     instructorNPC.PlayDialogue("onboarding_2b", shouldAutoProceed);
-                    movementTriggerZone.SetActive(true); // Enable collider trigger
+                    movementTriggerZone.SetActive(true);
+                    break;
+                case 4:
+                    instructorNPC.PlayDialogue("onboarding_2c", shouldAutoProceed);
+                    ActivateButton();
                     break;
                 case 5:
                     instructorNPC.PlayDialogue("onboarding_3a", shouldAutoProceed);
@@ -92,15 +85,14 @@ namespace Amused.XR
                     break;
                 case 11:
                     instructorNPC.PlayDialogue("onboarding_4b", shouldAutoProceed);
-                    // Awaits button choice
+                    ActivateButton();
                     break;
                 case 12:
-                    instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
-                    //onboardingController.GoToNextStage(); // Example method
-                    break;
-                case 13:
                     instructorNPC.PlayDialogue("onboarding_4b_no", shouldAutoProceed);
                     onboardingController.ResetOnboarding();
+                    break;
+                case 13:
+                    instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
                     break;
                 default:
                     Debug.LogWarning($"[OnboardingStepsHandler] Invalid step {step}");
@@ -108,9 +100,12 @@ namespace Amused.XR
             }
         }
 
-        private void SaveProgress()
+        private void ActivateButton()
         {
-            Debug.Log("[OnboardingStepsHandler] Simulated progress save.");
+            if (physicalButton != null)
+            {
+                physicalButton.SetActive(true);
+            }
         }
     }
 }

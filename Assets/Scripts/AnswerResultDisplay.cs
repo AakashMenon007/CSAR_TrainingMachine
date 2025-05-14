@@ -34,6 +34,7 @@ public class AnswerResultDisplay : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             int userAnswer;
+            //Debug.Log($"User Answer for Q{i + 1}: {userAnswers[i]}");
             if (int.TryParse(userAnswers[i], out userAnswer))
             {
                 bool isCorrect = userAnswer == correctAnswers[i];

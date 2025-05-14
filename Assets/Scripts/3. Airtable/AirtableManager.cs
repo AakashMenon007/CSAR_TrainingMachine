@@ -13,6 +13,8 @@ public class AirtableManager : MonoBehaviour
     // Reference to the AirtableSceneController script
     public AirtableSceneController airtableSceneController;     //project specific
 
+    public AnswerResultDisplay resultDisplay;
+
     [Header("Airtable Elements")]                           //neede for all projects
     // Airtable API endpoint and authentication details
     public string airtableEndpoint = "https://api.airtable.com/v0/";
@@ -74,6 +76,9 @@ public class AirtableManager : MonoBehaviour
 
             // Parse the JSON response
             JSONParse();
+
+            // Show result after successful submission
+            resultDisplay.ShowResults(); 
         }, jsonFields));
     }
 

@@ -1,68 +1,60 @@
-using System.Collections;
 using UnityEngine;
-//using Oculus.Interaction; // Meta Interaction SDK
+using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace Amused.XR
 {
-    /*/// <summary>
-    /// Detects when a player grabs an object and proceeds to the next onboarding step after a delay.
-    /// </summary>
     public class OnboardingGrabbable : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] private float grabHoldDelay = 3f; // Adjustable delay before proceeding
+        public OnboardingController onboardingController;
+        public float delayBeforeProceeding = 3f;
 
-        private OnboardingController onboardingController;
-        private Grabbable grabbable; // MRUK Grabbable Component
+        private XRGrabInteractable grab;
+        private bool hasTriggered = false;
 
-        private void Start()
+        private void Awake()
         {
-            onboardingController = FindObjectOfType<OnboardingController>();
-            if (onboardingController == null)
-            {
-                Debug.LogError("[OnboardingGrabbable] OnboardingController not found in the scene!");
-            }
+            grab = GetComponent<XRGrabInteractable>();
+        }
 
-            grabbable = GetComponent<Grabbable>();
-            if (grabbable == null)
+        private void OnEnable()
+        {
+            if (grab != null)
             {
-                Debug.LogError("[OnboardingGrabbable] No Grabbable component found on this object!");
-            }
-            else
-            {
-                grabbable.WhenPointerEventRaised += OnGrab;
+                grab.selectEntered.AddListener(OnGrabbed);
+                grab.selectExited.AddListener(OnReleased);
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            if (grabbable != null)
+            if (grab != null)
             {
-                grabbable.WhenPointerEventRaised -= OnGrab;
+                grab.selectEntered.RemoveListener(OnGrabbed);
+                grab.selectExited.RemoveListener(OnReleased);
             }
         }
 
-        /// <summary>
-        /// Called when the object is grabbed.
-        /// </summary>
-        private void OnGrab(PointerEvent evt)
+        private void OnGrabbed(SelectEnterEventArgs args)
         {
-            if (evt.Type == PointerEventType.Select) // Object grabbed
-            {
-                Debug.Log("[OnboardingGrabbable] Object grabbed! Waiting before proceeding...");
-                StartCoroutine(ProceedAfterDelay());
-                grabbable.WhenPointerEventRaised -= OnGrab; // Prevent multiple triggers
-            }
+            if (hasTriggered) return;
+
+            hasTriggered = true;
+            Debug.Log("[OnboardingGrabbable] Grabbed — starting coroutine.");
+            StartCoroutine(WaitThenProceed());
         }
 
-        /// <summary>
-        /// Waits for the set delay, then proceeds to the next onboarding step.
-        /// </summary>
-        private IEnumerator ProceedAfterDelay()
+        private void OnReleased(SelectExitEventArgs args)
         {
-            yield return new WaitForSeconds(grabHoldDelay);
-            Debug.Log("[OnboardingGrabbable] Grab hold delay over. Proceeding to next step.");
-            onboardingController.ProceedToNextStep();
+            Debug.Log("[OnboardingGrabbable] Released — hiding object.");
+            gameObject.SetActive(false);
         }
-    }*/
+
+        private IEnumerator WaitThenProceed()
+        {
+            yield return new WaitForSeconds(delayBeforeProceeding);
+            onboardingController?.ProceedToNextStep();
+        }
+    }
 }

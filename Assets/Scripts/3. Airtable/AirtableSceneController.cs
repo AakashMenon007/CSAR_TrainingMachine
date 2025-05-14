@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
+using UnityEngine.Rendering;
 
 
 public class AirtableSceneController : MonoBehaviour
@@ -65,14 +66,14 @@ public class AirtableSceneController : MonoBehaviour
     public void SaveAllData()
     {
         // Set the values for the questions, including the slider values
-        airtableManager.Question1 = question1Slider.value.ToString(); // Slider value
-        airtableManager.Question2 = question2Slider.value.ToString();
-        airtableManager.Question3 = question3Slider.value.ToString();
-        airtableManager.Question4 = question4Slider.value.ToString();
-        airtableManager.Question5 = question5Slider.value.ToString();
-        airtableManager.Question6 = question6Slider.value.ToString();
-        airtableManager.Question7 = question7Slider.value.ToString();
-        airtableManager.Question8 = question8Slider.value.ToString();
+        airtableManager.Question1 = ((int)question1Slider.value).ToString();
+        airtableManager.Question2 = ((int)question2Slider.value).ToString();
+        airtableManager.Question3 = ((int)question3Slider.value).ToString();
+        airtableManager.Question4 = ((int)question4Slider.value).ToString();
+        airtableManager.Question5 = ((int)question5Slider.value).ToString();
+        airtableManager.Question6 = ((int)question6Slider.value).ToString();
+        airtableManager.Question7 = ((int)question7Slider.value).ToString();
+        airtableManager.Question8 = ((int)question8Slider.value).ToString();
         //airtableManager.Question9 = question9Slider.value.ToString();
 
         airtableManager.CreateRecord();
@@ -92,4 +93,46 @@ public class AirtableSceneController : MonoBehaviour
         question8Level.text = " " + question8Slider.value.ToString("0");
         //question9Level.text = " " + question9Slider.value.ToString("0");
     }
+
+    public void SaveVolumeLevel()
+    {
+        airtableManager.Question1 = ((int)question1Slider.value).ToString();
+        airtableManager.Question2 = ((int)question2Slider.value).ToString();
+        airtableManager.Question3 = ((int)question3Slider.value).ToString();
+        airtableManager.Question4 = ((int)question4Slider.value).ToString();
+        airtableManager.Question5 = ((int)question5Slider.value).ToString();
+        airtableManager.Question6 = ((int)question6Slider.value).ToString();
+        airtableManager.Question7 = ((int)question7Slider.value).ToString();
+        airtableManager.Question8 = ((int)question8Slider.value).ToString();
+        //airtableManager.Question9 = question9Slider.value.ToString();
+
+    }
+
+    /*
+    public void UpdateVolume()
+    {
+        volume = volumeSlider.value.ToString();
+    }
+
+    //sets volume variable to slider value and calls custom function from airtable controller
+    public void SaveVolumeLevel()
+    {
+        airtableManager.volume = volume;
+        airtableManager.CreateRecord();
+    }
+    public void SaveAllData()
+    {
+        airtableManager.playerName = playerName;
+        airtableManager.volume = volume;
+    }
+
+        // Update is called once per frame
+    void Update()
+    {
+        //ensures the text feedback is always the sliders value
+        volumeLevel.text = volumeSlider.value.ToString();
+    }
+
+
+    */
 }
