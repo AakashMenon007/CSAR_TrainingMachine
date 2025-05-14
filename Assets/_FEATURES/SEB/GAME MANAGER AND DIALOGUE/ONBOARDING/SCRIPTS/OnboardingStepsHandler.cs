@@ -17,6 +17,11 @@ namespace Amused.XR
         [SerializeField] private GameObject yesButton;
         [SerializeField] private GameObject noButton;
 
+        [Header("OSH Objects")]
+        [SerializeField] private GameObject coatColliderTrigger;
+        [SerializeField] private GameObject leftGlove;
+        [SerializeField] private GameObject rightGlove;
+
         private readonly Dictionary<int, bool> autoProceedSteps = new Dictionary<int, bool>
         {
             { 0, true },   // onboarding_1a
@@ -96,6 +101,28 @@ namespace Amused.XR
                 case 13:
                     instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
                     break;
+                case 14:
+                    instructorNPC.PlayDialogue("osh_1a", shouldAutoProceed);
+                    break;
+                case 15:
+                    instructorNPC.PlayDialogue("osh_1b_coat", shouldAutoProceed);
+                    coatColliderTrigger.SetActive(true); // If you have a collider check
+                    break;
+                case 16:
+                    instructorNPC.PlayDialogue("osh_1b_waiting", shouldAutoProceed);
+                    break;
+                case 17:
+                    instructorNPC.PlayDialogue("osh_1b_warning", shouldAutoProceed);
+                    break;
+                case 18:
+                    instructorNPC.PlayDialogue("osh_1b_gloves", shouldAutoProceed);
+                    leftGlove.SetActive(true);
+                    rightGlove.SetActive(true);
+                    break;
+                case 19:
+                    instructorNPC.PlayDialogue("osh_1c", shouldAutoProceed);
+                    StartCoroutine(SwitchSceneAfterDialogue()); // if you're transitioning
+                    break;
                 default:
                     Debug.LogWarning($"[OnboardingStepsHandler] Invalid step {step}");
                     break;
@@ -112,6 +139,12 @@ namespace Amused.XR
         {
             yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
             onboardingController.ResetOnboarding();
+        }
+
+        private IEnumerator SwitchSceneAfterDialogue()
+        {
+            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
+            // SceneManager.LoadScene("NextSceneName");
         }
     }
 }
