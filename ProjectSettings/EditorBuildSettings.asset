@@ -5,18 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Warehouse Master Scene.unity
-    guid: 9091f3873812d5744b19924498187d36
-  - enabled: 0
-    path: Assets/Scenes/Guided Practice.unity
-    guid: 9f97abf40a1905f47bc656b3286a4f67
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/Onboarding_just_testing.unity
+    guid: f2540f1e804f8994eabdb92b9178dce0
+  - enabled: 1
     path: Assets/Scenes/WareHouse_Inst_05.05.25.unity
     guid: 44886a4a83e87f84e88bbae838142477
-  - enabled: 0
-    path: Assets/Start Menu.unity
-    guid: 358aaaf1451c72b4eba321bd509ea9d3
+  - enabled: 1
+    path: Assets/Scenes/Guided Practice.unity
+    guid: a47cb6a87f4bc91489bc05913200b3db
+  - enabled: 1
+    path: Assets/Scenes/IndependantPractice.unity
+    guid: 9f97abf40a1905f47bc656b3286a4f67
   - enabled: 1
     path: Assets/Scenes/Assisment_Airtable.unity
     guid: f38c57ea23198af429a48e799dc599b6
