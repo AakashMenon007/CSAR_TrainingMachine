@@ -4,30 +4,27 @@ using UnityEngine;
 using UnityEngine.AI;
 using Yarn.Unity;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
-    [Header("Movement Settings")]
+    [Header("Waypoints")]
     public List<Transform> waypoints;
     public string playerTag = "Player";
 
-    [Header("Animation Parameters")]
-    public string moveParam = "move";
-    public string speedParam = "locomotion";
-
     private NavMeshAgent agent;
-    private Animator animator;
+    private NavMeshAgentAnimationSync animationSync;
     private DialogueRunner dialogueRunner;
     private Transform player;
+
     private int currentWaypoint = 0;
     private bool isDialoguePlaying = false;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animationSync = GetComponent<NavMeshAgentAnimationSync>();
         dialogueRunner = FindObjectOfType<DialogueRunner>();
-        player = GameObject.FindGameObjectWithTag(playerTag).transform;
+        player = GameObject.FindGameObjectWithTag(playerTag)?.transform;
     }
 
     void Start()
@@ -44,58 +41,51 @@ public class NPCMovement : MonoBehaviour
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            if (!agent.hasPath || agent.velocity.sqrMagnitude < 0.01f)
             {
                 StartCoroutine(StartDialogueRoutine());
             }
-        }
-        else
-        {
-            UpdateMovementAnimation();
         }
     }
 
     void MoveToWaypoint()
     {
-        agent.SetDestination(waypoints[currentWaypoint].position);
-        animator.SetBool(moveParam, true);
-    }
-
-    void UpdateMovementAnimation()
-    {
-        float speed = agent.velocity.magnitude;
-        animator.SetFloat(speedParam, speed);
+        animationSync.CurrentDestinaton = waypoints[currentWaypoint].position;
+        agent.isStopped = false;
     }
 
     IEnumerator StartDialogueRoutine()
     {
         isDialoguePlaying = true;
 
-        // Stop moving
-        agent.isStopped = true;
-        animator.SetBool(moveParam, false);
-        animator.SetFloat(speedParam, 0f);
+        // Stop agent movement
+        animationSync.StopMoving();
 
-        // Face the player
-        Vector3 direction = player.position - transform.position;
-        direction.y = 0;
-        if (direction.sqrMagnitude > 0.01f)
+        // Face player
+        if (player != null)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
         }
 
         // Start dialogue
-        dialogueRunner.StartDialogue(waypoints[currentWaypoint].name);
+        string nodeName = waypoints[currentWaypoint].name;
+        if (!dialogueRunner.IsDialogueRunning)
+        {
+            dialogueRunner.StartDialogue(nodeName);
+        }
 
-        // Wait until dialogue ends
         while (dialogueRunner.IsDialogueRunning)
         {
             yield return null;
         }
 
-        // Go to next point
+        // Continue to next waypoint
         currentWaypoint++;
-        agent.isStopped = false;
         isDialoguePlaying = false;
 
         if (currentWaypoint < waypoints.Count)

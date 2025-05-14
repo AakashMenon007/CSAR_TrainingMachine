@@ -26,6 +26,10 @@ System A, which you see on this side, is our broodstock system. This is where we
 System B, over here at back, is our larval and ongrow system. This is where we raise Shrimp and thrive best at 28°C, though they can grow well within a range of 25 to 30°C.    #line:over3
 Both systems operate on similar principles but are optimized for different life stages of the aquatic species we research. The blue pipes you see carry cleaned, oxygenated water to the tanks, while the red pipes carry water from the tanks to our filtration systems.   #line:over4
 Temperature is managed through two main methods, heat pumps that circulate water to and from the main sumps, maintaining water temperature, and air heat units that regulate room temperature to match the water setpoint. We check temperatures daily, and alarms notify technicians via pool phones if temperatures rise or fall beyond set limits. Drops in temperature are typically caused by failed heat pumps or malfunctioning air conditioning units.  #line:over5
+
+<<if $repeat == true>>
+    <<jump Final>>
+<<endif>>
 ===
 
 title: WaterIntakeProcessing
@@ -35,7 +39,7 @@ tags:
 First, we have fresh water intake that enters the system initially. Second, we have water that's continuously recirculated from the tanks. This dual source approach allows us to minimize water usage while maintaining optimal conditions. When water first enters our system, it undergoes initial mechanical filtration. This is a crucial first step that removes larger particles and debris before the water moves through the more sensitive components of our system.  #line:water
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -44,12 +48,12 @@ tags:
 ---
 
 We have three main pumps that work together to keep water flowing through the entire facility.  #line:sp1
-Pump 1 is our primary circulation pump. It's responsible for moving water from the filtration systems back to the culture tanks. //The organisms wouldn't receive the clean, oxygenated water they need to thrive.  #line:sp2
-Pump 2 serves as our secondary circulation pump. It helps maintain proper flow rates and provides redundancy in case of issues with the primary pump. //In aquaculture, redundancy is essential because even a brief interruption in water flow can be detrimental to our aquatic species.  #line:sp3
+Pump 1 is our primary circulation pump. It's responsible for moving water from the filtration systems back to the culture tanks.  #line:sp2
+Pump 2 serves as our secondary circulation pump. It helps maintain proper flow rates and provides redundancy in case of issues with the primary pump.  #line:sp3
 Pump 3 is our specialized skimmer pump. It directs water flow through our protein skimmer, which removes dissolved organic compounds from the water. These compounds, if left unchecked, could break down and compromise water quality. #line:sp4
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -57,11 +61,11 @@ title: DrumFilter
 tags:
 ---
 
-As water leaves the fish tanks, it carries solid waste like uneaten food and fish feces. The first treatment stage is the drum filter component.The drum filter is essentially a rotating screen that captures large solid particles while allowing water to flow through. As water enters this component, it passes through a fine mesh screen that traps particles. //as small as 40 microns. #line:drum1
+As water leaves the fish tanks, it carries solid waste like uneaten food and fish feces. The first treatment stage is the drum filter component.The drum filter is essentially a rotating screen that captures large solid particles while allowing water to flow through. As water enters this component, it passes through a fine mesh screen that traps particles.   #line:drum1
 When the screen becomes clogged with captured solids, spray nozzles activate to clean it, and the collected waste is flushed into a separate collection system. #line:drum2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -74,7 +78,7 @@ The backwashing process reverses the water flow through the filter, flushing out
 We regularly monitor the pressure in our sand filters. A reading around 0.7 is typical, but when pressure increases, it indicates the filter is becoming clogged and needs backwashing. #line:sand3
 
 <<if $repeat == true>>    
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -86,7 +90,7 @@ Next in the water treatment process is this tall cylinder - the protein skimmer.
 Dissolved organic compounds are attracted to the air-water interface of these bubbles. As the bubbles rise and accumulate at the top, they form a protein-rich foam that's collected and removed from the system. This process not only improves water clarity but also removes compounds before they can break down into ammonia. And this also acts as a gas exchange system removing some of the CO2 and replenishing O2.   #line:skimmer2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -98,7 +102,7 @@ The next is our ultraviolet sterilizers. They use UV light to kill microorganism
 The effectiveness of UV treatment depends on water clarity, which is why it's positioned after our filtration systems. Clear water allows the UV light to penetrate effectively and reach all microorganisms.   #line:uv2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -106,11 +110,11 @@ title: OxygenCone
 tags:
 ---
 
-The centerpiece of our oxygenation system is this oxygen cone. It's designed to efficiently dissolve pure oxygen into the water. We monitor oxygen levels throughout the system using these digital oxygen meters. The readings from 7 to 8 and 5 to 6 that you see on our checklist represent parts per million of dissolved oxygen for system A and system B. //which is within the ideal range for most aquatic species. #line:oxygen1
+The centerpiece of our oxygenation system is this oxygen cone. It's designed to efficiently dissolve pure oxygen into the water. We monitor oxygen levels throughout the system using these digital oxygen meters. The readings from 7 to 8 and 5 to 6 that you see on our checklist represent parts per million of dissolved oxygen for system A and system B. #line:oxygen1
 Our oxygen supply comes from these pressurized cylinders. We monitor cylinder pressure, you can see here it's reading 145 PSI to ensure we don't unexpectedly run out of oxygen.    #line:oxygen2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -122,7 +126,7 @@ In addition to the oxygen cone, this system uses an air blower to provide supple
 Our daily checklist confirms that aeration is active in all tanks. This is important not just for oxygen but also for preventing stratification of the water column and ensuring uniform conditions throughout each tank.   #line:airblower2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
@@ -134,13 +138,13 @@ Water flow rate is a critical parameter in recirculating systems. Too slow, and 
 On our checklist, you can see readings of 47 liters and 34 liters. These measurements help us ensure that all tanks are receiving adequate water exchange and that our filtration systems are handling appropriate volumes. #line:flow2
 
 <<if $repeat == true>>
-    <<jump final>>
+    <<jump Final>>
 <<endif>>
 ===
 
 title: Maintenance
 tags:
----//function to call --- at last to explain the tasks to be done.
+---
 
 Like any complex system, regular maintenance is essential. Activities to take action on regular basis for maintenance.   #line:maintence1
 Daily monitoring of all water parameters. Regular backwashing of sand filters. Cleaning and calibration of sensors and probes. System checks for leaks or component failures. UV bulb replacement at recommended intervals. Oxygen cylinder replacements.   #line:maintence2
@@ -151,8 +155,11 @@ title: Final
 tags:
 ---
 
-Do you want to repeat any of the components? Or you can move to next stage.
+Do you want to repeat any of the components? You will have assessment at the end.
     <<set $repeat = true>>
+
+    -> Overview
+        <<jump Overview>>
     -> Water Intake Processing
         <<jump WaterIntakeProcessing>>
     -> System Pumps
@@ -169,6 +176,14 @@ Do you want to repeat any of the components? Or you can move to next stage.
         <<jump OxygenCone>>
     -> Air Blower
         <<jump AirBlower>>
+    -> Done repeating components
+    <<set $repeat = false>>
+    <<jump Empty>>
 
+===
+title: Empty
+tags:
+---
+Move to next stage.
 
 ===
