@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Assets/HighlightMaterial.mat.meta
+guid: 777a0c63f6a6f99429ffe0317498e991
+========
 guid: 46dcedc87c76e82409adad8162e89e34
+>>>>>>>> 2bc8a7b0c9a111b642b130b4813ca762aec6d0b6:Assets/_FEATURES/SEB/GAME MANAGER AND DIALOGUE/ONBOARDING/MATERIALS/YesButton.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
