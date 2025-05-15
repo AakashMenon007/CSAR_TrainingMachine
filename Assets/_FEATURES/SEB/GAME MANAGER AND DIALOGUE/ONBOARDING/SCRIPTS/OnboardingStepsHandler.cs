@@ -18,7 +18,7 @@ namespace Amused.XR
         [SerializeField] private GameObject noButton;
 
         [Header("OSH Objects")]
-        [SerializeField] private GameObject coatColliderTrigger;
+        [SerializeField] private GameObject coatObject;
         [SerializeField] private GameObject leftGlove;
         [SerializeField] private GameObject rightGlove;
 
@@ -106,7 +106,7 @@ namespace Amused.XR
                     break;
                 case 15:
                     instructorNPC.PlayDialogue("osh_1b_coat", shouldAutoProceed);
-                    coatColliderTrigger.SetActive(true); // If you have a collider check
+                    if (coatObject != null) coatObject.SetActive(true);
                     break;
                 case 16:
                     instructorNPC.PlayDialogue("osh_1b_waiting", shouldAutoProceed);
@@ -116,8 +116,8 @@ namespace Amused.XR
                     break;
                 case 18:
                     instructorNPC.PlayDialogue("osh_1b_gloves", shouldAutoProceed);
-                    leftGlove.SetActive(true);
-                    rightGlove.SetActive(true);
+                    if (leftGlove != null) leftGlove.SetActive(true);
+                    if (rightGlove != null) rightGlove.SetActive(true);
                     break;
                 case 19:
                     instructorNPC.PlayDialogue("osh_1c", shouldAutoProceed);
