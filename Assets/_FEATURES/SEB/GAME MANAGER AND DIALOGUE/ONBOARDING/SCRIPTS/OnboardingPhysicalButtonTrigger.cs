@@ -40,7 +40,7 @@ namespace Amused.XR
                     if (currentStep == 12)
                     {
                         Debug.Log("[Button] YES.");
-                        FindObjectOfType<OnboardingStepsHandler>().ExecuteStep(13);
+                        FindObjectOfType<OnboardingStepsHandler>().ExecuteStep(14);
                     }
                     else
                     {
@@ -50,7 +50,7 @@ namespace Amused.XR
                     break;
 
                 case ButtonType.No:
-                    Debug.Log("[Button] NO — proceeding to step 13 (restart line).");
+                    Debug.Log("[Button] NO — proceeding to step 12 (restart line).");
                     onboardingController.ProceedToNextStep();
                     break;
             }

@@ -99,14 +99,15 @@ namespace Amused.XR
                     StartCoroutine(ResetAfterDialogue());
                     break;
                 case 13:
-                    instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed);
+                    instructorNPC.PlayDialogue("onboarding_4b_yes", shouldAutoProceed); // for some reason this case calls case 12 which restarts the onboarding so I will just skip it for now
                     break;
                 case 14:
                     instructorNPC.PlayDialogue("osh_1a", shouldAutoProceed);
+                    if (coatObject != null) coatObject.SetActive(true);
+                    if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
                     break;
                 case 15:
                     instructorNPC.PlayDialogue("osh_1b_coat", shouldAutoProceed);
-                    if (coatObject != null) coatObject.SetActive(true);
                     break;
                 case 16:
                     instructorNPC.PlayDialogue("osh_1b_waiting", shouldAutoProceed);
@@ -146,5 +147,13 @@ namespace Amused.XR
             yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
             // SceneManager.LoadScene("NextSceneName");
         }
+
+        [SerializeField] private Collider playerCoatTrigger;
+        private IEnumerator EnableCoatWearColliderAfterDialogue()
+        {
+            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
+            if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
+        }
+
     }
 }
