@@ -1,39 +1,39 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections;
 
 namespace Amused.XR
 {
-    public class CoatGrabHandler : MonoBehaviour
+    public class CoatWearTrigger : MonoBehaviour
     {
-        [Tooltip("Audio to play when coat is equipped")]
         public AudioSource equipSound;
-
+        public float soundDelay = 0.2f;
         public OnboardingController onboardingController;
-        public int validStep = 15;
 
-        private bool hasBeenGrabbed = false;
+        private bool isEquipped = false;
 
-        public void OnGrab(SelectEnterEventArgs args)
+        private void OnTriggerEnter(Collider other)
         {
-            if (hasBeenGrabbed || onboardingController.GetCurrentStep() != validStep)
-                return;
+            if (isEquipped) return;
 
-            hasBeenGrabbed = true;
-            StartCoroutine(EquipCoatAfterDelay());
+            if (other.CompareTag("PlayerCoatZone"))
+            {
+                isEquipped = true;
+                Debug.Log("[CoatWearTrigger] Coat equipped trigger!");
+                if (equipSound != null) equipSound.Play();
+                float delay = equipSound != null ? equipSound.clip.length + soundDelay : 0.5f;
+                StartCoroutine(DeactivateAfterSound(delay));
+            }
         }
 
-        private IEnumerator EquipCoatAfterDelay()
+        private IEnumerator DeactivateAfterSound(float delay)
         {
-            yield return new WaitForSeconds(1f);
-
-            if (equipSound != null)
-                equipSound.Play();
-
-            Debug.Log("[CoatGrabHandler] Coat equipped — hiding object and proceeding.");
+            yield return new WaitForSeconds(delay);
             gameObject.SetActive(false);
-
-            onboardingController.ProceedToNextStep();
+            if (onboardingController != null)
+            {
+                onboardingController.SetStep(18);           // Skip to gloves step
+                onboardingController.ProceedToNextStep();   // Play gloves logic
+            }
         }
     }
 }

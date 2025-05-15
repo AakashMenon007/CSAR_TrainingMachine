@@ -103,6 +103,11 @@ namespace Amused.XR
         {
             return currentStep;
         }
+
+        public void SetStep(int step)
+        {
+            currentStep = step;
+        }
     }
 }
 
