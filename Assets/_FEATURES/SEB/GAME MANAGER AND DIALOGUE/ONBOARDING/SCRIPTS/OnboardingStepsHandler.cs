@@ -103,11 +103,11 @@ namespace Amused.XR
                     break;
                 case 14:
                     instructorNPC.PlayDialogue("osh_1a", shouldAutoProceed);
+                    if (coatObject != null) coatObject.SetActive(true);
+                    if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
                     break;
                 case 15:
                     instructorNPC.PlayDialogue("osh_1b_coat", shouldAutoProceed);
-                    if (coatObject != null) coatObject.SetActive(true);
-                    StartCoroutine(EnableCoatWearColliderAfterDialogue());
                     break;
                 case 16:
                     instructorNPC.PlayDialogue("osh_1b_waiting", shouldAutoProceed);

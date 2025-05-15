@@ -12,6 +12,8 @@ TagManager:
   - Anchor
   - NPC
   - PlayerCoatZone
+  - RightHandGloveZone
+  - LeftHandGloveZone
   layers:
   - Default
   - TransparentFX

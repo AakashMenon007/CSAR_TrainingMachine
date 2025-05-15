@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections;
 
 namespace Amused.XR
 {
-    public class GloveGrabHandler : MonoBehaviour
+    public class OSHGloveEquipTrigger : MonoBehaviour
     {
-        [Tooltip("Reference to the corresponding hand object (e.g., left or right)")]
-        public Renderer handRenderer;
+        [Tooltip("Reference to the corresponding hand collider's tag (e.g., 'LeftHandGloveZone' or 'RightHandGloveZone')")]
+        public string handZoneTag;
 
-        [Tooltip("Material to apply once glove is equipped")]
+        [Tooltip("Material to apply to the hand (optional)")]
+        public Renderer handRenderer;
         public Material equippedHandMaterial;
 
         [Tooltip("Audio to play when glove is equipped")]
@@ -18,53 +18,52 @@ namespace Amused.XR
         [Tooltip("Set to true if this is the LEFT glove, false for RIGHT")]
         public bool isLeftGlove;
 
+        public OnboardingController onboardingController;
+
         private static bool leftGloveEquipped = false;
         private static bool rightGloveEquipped = false;
+        private bool isEquipped = false;
 
-        private bool hasBeenGrabbed = false;
-
-        public OnboardingController onboardingController;
-        public int validStep = 18;
-
-        public void OnGrab(SelectEnterEventArgs args)
+        private void OnTriggerEnter(Collider other)
         {
-            if (hasBeenGrabbed || onboardingController.GetCurrentStep() != validStep)
-                return;
+            if (isEquipped) return;
+            if (!other.CompareTag(handZoneTag)) return;
 
-            hasBeenGrabbed = true;
-            StartCoroutine(EquipGloveAfterDelay());
+            isEquipped = true;
+            StartCoroutine(EquipGloveRoutine());
         }
 
-        private IEnumerator EquipGloveAfterDelay()
+        private IEnumerator EquipGloveRoutine()
         {
-            yield return new WaitForSeconds(1f);
-
-            // Play sound
+            // Play sound instantly
             if (equipSound != null)
                 equipSound.Play();
 
-            // Change hand material
+            // Change hand material immediately (if needed)
             if (handRenderer != null && equippedHandMaterial != null)
                 handRenderer.material = equippedHandMaterial;
 
-            // Update static state
+            // Mark as equipped
             if (isLeftGlove)
                 leftGloveEquipped = true;
             else
                 rightGloveEquipped = true;
 
-            Debug.Log($"[GloveGrabHandler] {(isLeftGlove ? "Left" : "Right")} glove equipped.");
+            Debug.Log($"[OSHGloveEquipTrigger] {(isLeftGlove ? "Left" : "Right")} glove equipped.");
 
-            // Deactivate the glove object
+            // Wait for sound to finish (or 0.5s if no sound)
+            float waitTime = (equipSound != null && equipSound.clip != null) ? equipSound.clip.length : 0.5f;
+            yield return new WaitForSeconds(waitTime);
+
+            // Deactivate glove object
             gameObject.SetActive(false);
 
-            // Check if both are done
-            if (leftGloveEquipped && rightGloveEquipped)
+            // Check if both gloves are now equipped
+            if (leftGloveEquipped && rightGloveEquipped && onboardingController != null)
             {
-                Debug.Log("[GloveGrabHandler] Both gloves equipped — proceeding.");
+                Debug.Log("[OSHGloveEquipTrigger] Both gloves equipped — proceeding.");
                 onboardingController.ProceedToNextStep();
             }
         }
     }
 }
-
