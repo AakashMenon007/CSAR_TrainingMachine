@@ -37,7 +37,7 @@ namespace Amused.XR
         private bool shouldAutoProceed = false;
         private bool isAudioLoaded = false;
 
-
+        public bool DialogueIsActive => !audioFinished || !textFinished;
 
         #endregion
 
@@ -67,10 +67,16 @@ namespace Amused.XR
         public void PlayDialogue(string lineKey, bool autoProceed)
         {
             Debug.Log($"[NPCInstructorController] PlayDialogue START. instructorNPC: {this}, npcHead: {npcHead}, lineKey: {lineKey}");
+            Debug.LogWarning($"[PlayDialogue] lineKey = {lineKey}, autoProceed = {autoProceed}");
             // Reset progression tracking
             audioFinished = false;
             textFinished = false;
             shouldAutoProceed = autoProceed;
+
+            if (autoProceed && lineKey == "onboarding_3b")
+            {
+                Debug.LogError("[FATAL] Step onboarding_3b is wrongly marked as autoProceed. Fix immediately.");
+            }
 
             // Retrieve the dialogue text
             string text = OnboardingDialogueData.GetText(lineKey);

@@ -1998,6 +1998,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 5091751494244319149, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: gripAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091751494244319149, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: indexAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091751494244319149, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: thumbAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091751494244319149, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: triggerAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2148,6 +2164,22 @@ PrefabInstance:
     - target: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869348159812384573, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: gripAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869348159812384573, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: indexAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869348159812384573, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: thumbAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869348159812384573, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: triggerAction.m_Reference
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

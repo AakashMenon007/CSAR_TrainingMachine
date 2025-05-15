@@ -57,10 +57,8 @@ namespace Amused.XR
 
         public void ProceedToNextStep()
         {
-            Debug.Log($"[OnboardingController] Advancing to step {currentStep}");
-
+           // Debug.LogWarning($"[ProceedToNextStep] CALLED at step {currentStep} — STACK:\n" + System.Environment.StackTrace);
             stepsHandler.ExecuteStep(currentStep);
-
             currentStep++;
             SaveOnboardingProgress();
         }
