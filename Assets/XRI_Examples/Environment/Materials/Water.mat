@@ -58,8 +58,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_D8266549: 1.22
-    - _Depth: 0
+    - Vector1_D8266549: 1.141
+    - _Depth: 1.24
     - _Displacement: 0.0002
     - _NormalStrength: 1
     - _QueueControl: 0
