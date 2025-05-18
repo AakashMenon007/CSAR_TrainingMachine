@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Amused.XR
 {
@@ -145,7 +146,7 @@ namespace Amused.XR
         private IEnumerator SwitchSceneAfterDialogue()
         {
             yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
-            // SceneManager.LoadScene("NextSceneName");
+            SceneManager.LoadScene("2.KnowledgeBuilding");
         }
 
         [SerializeField] private Collider playerCoatTrigger;
