@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,12 +7,14 @@ using Yarn.Unity;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
-    [Header("Waypoints")]
+    [Header("Waypoints (in order)")]
     public List<Transform> waypoints;
-    public string playerTag = "Player";
 
-    [Header("Highlightable Objects")]
-    public List<GameObject> highlightObjects; // One per waypoint
+    [Header("Highlightable Objects (must match waypoint count)")]
+    public List<GameObject> highlightObjects;
+
+    [Header("Player Targeting")]
+    public string playerTag = "Player";
 
     private NavMeshAgent agent;
     private NavMeshAgentAnimationSync animationSync;
@@ -53,8 +55,13 @@ public class NPCMovement : MonoBehaviour
 
     void MoveToWaypoint()
     {
-        animationSync.CurrentDestinaton = waypoints[currentWaypoint].position;
-        agent.isStopped = false;
+        if (currentWaypoint < waypoints.Count)
+        {
+            Vector3 targetPosition = waypoints[currentWaypoint].position;
+            animationSync.CurrentDestinaton = targetPosition;
+            agent.SetDestination(targetPosition);
+            agent.isStopped = false;
+        }
     }
 
     IEnumerator StartDialogueRoutine()
@@ -73,10 +80,10 @@ public class NPCMovement : MonoBehaviour
             }
         }
 
-        // Highlight the associated object
+        // Highlight associated object
         if (currentWaypoint < highlightObjects.Count)
         {
-            var highlighter = highlightObjects[currentWaypoint].GetComponent<Highlighter>();
+            var highlighter = highlightObjects[currentWaypoint].GetComponent<MultiRendererHighlighter>();
             highlighter?.Highlight();
         }
 
@@ -87,7 +94,7 @@ public class NPCMovement : MonoBehaviour
             dialogueRunner.StartDialogue(nodeName);
         }
 
-        // Wait until dialogue ends
+        // Wait for dialogue to finish
         while (dialogueRunner.IsDialogueRunning)
         {
             yield return null;
@@ -96,11 +103,11 @@ public class NPCMovement : MonoBehaviour
         // Remove highlight
         if (currentWaypoint < highlightObjects.Count)
         {
-            var highlighter = highlightObjects[currentWaypoint].GetComponent<Highlighter>();
-            highlighter?.RemoveHighlight();
+            var highlighter = highlightObjects[currentWaypoint].GetComponent<MultiRendererHighlighter>();
+            highlighter?.StopHighlight();
         }
 
-        // Proceed to next
+        // Advance
         currentWaypoint++;
         isDialoguePlaying = false;
 
