@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Onboarding_just_testing.unity
-    guid: f2540f1e804f8994eabdb92b9178dce0
+    path: Assets/Scenes/Start Menu.unity
+    guid: 358aaaf1451c72b4eba321bd509ea9d3
+  - enabled: 1
+    path: Assets/Scenes/About.unity
+    guid: 9216bc69994985d4097b73c08147520f
+  - enabled: 1
+    path: Assets/Scenes/1.Onboarding.unity
+    guid: 1a3ed9969db6bd84ba98cf2698728fed
   - enabled: 1
     path: Assets/Scenes/2.KnowledgeBuilding.unity
     guid: 44886a4a83e87f84e88bbae838142477
@@ -17,18 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/4.Independant Practice.unity
     guid: 9f97abf40a1905f47bc656b3286a4f67
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/5.Assisment_Airtable.unity
     guid: f38c57ea23198af429a48e799dc599b6
-  - enabled: 1
-    path: Assets/Start Menu.unity
-    guid: 358aaaf1451c72b4eba321bd509ea9d3
-  - enabled: 0
-    path: Assets/Start.unity
-    guid: fa17db9327e1c48428a5dd79735795a2
-  - enabled: 0
-    path: Assets/StylizedWater2/_Demo/WavesExample.unity
-    guid: f68878558e455ca4fbc18a0a8a5b648e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
