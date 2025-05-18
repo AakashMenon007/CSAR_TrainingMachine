@@ -3,6 +3,11 @@
 ## **Overview**
 The VR Aquaculture Training App is an immersive virtual reality application developed for the Centre for Sustainable Aquatic Research (CSAR). This app replicates a Recirculating Aquaculture System (RAS) in VR to train students in managing sustainable aquaculture environments. It provides hands-on learning opportunities through interactive tasks and real-world problem-solving scenarios.
 
+![Screenshot 2025-05-18 161812](https://github.com/user-attachments/assets/953c25fd-4f91-4b24-bb90-4211adf529b1)
+
+![Screenshot 2025-05-18 162124](https://github.com/user-attachments/assets/0b01bef8-4631-4363-96c8-5e7471633070)
+
+
 ---
 
 ## **Features**
@@ -23,6 +28,9 @@ The VR Aquaculture Training App is an immersive virtual reality application deve
   - Pumps
 - Visual and textual explanations of the purpose and function of each component.
 
+  ![Screenshot 2025-05-18 161904](https://github.com/user-attachments/assets/7b44e026-da31-49ba-a408-15aa422052b1)
+
+
 ### 3. **Guided Practice**
 - Hands-on tasks with step-by-step instructions:
   - Sanitizing the tank.
@@ -30,11 +38,18 @@ The VR Aquaculture Training App is an immersive virtual reality application deve
   - Adjusting oxygen and pH levels.
   - Replacing a water pump.
   - Operating backup generators.
+ 
+    ![Screenshot 2025-05-18 161941](https://github.com/user-attachments/assets/4c27f168-d1f1-49ec-a16b-e3ae30923aa7)
+
+    ![Screenshot 2025-05-18 161954](https://github.com/user-attachments/assets/e43644c9-cb20-42a9-94bf-cfbc87cbbf56)
+
+
 
 ### 4. **Independent Practice**
 - Users apply learned skills in an unguided environment:
   - Perform the same tasks as in Guided Practice, but without assistance.
   - Real-time feedback and performance tracking.
+
 
 ### 5. **Assessment & Reflection**
 - Scenario-based quizzes evaluate the user's understanding and skill.
