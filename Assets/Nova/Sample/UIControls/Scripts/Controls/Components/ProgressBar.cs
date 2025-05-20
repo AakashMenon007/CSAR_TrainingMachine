@@ -18,7 +18,7 @@ namespace NovaSamples.UIControls
         const int MaxDecimals = 4;
 
         [SerializeField, Range(0, 400), Tooltip("The current PSI level.")]
-        private float psiLevel = 50f; // Default to 50
+        private float psiLevel = 45f; // Default to 45
 
         [Header("Progress Indicator")]
         [Tooltip("The UI Block 2D whose properties will be modified to indicate the progress state.")]
@@ -45,7 +45,7 @@ namespace NovaSamples.UIControls
             get => psiLevel;
             set
             {
-                psiLevel = Mathf.Clamp(value, 0, 400);
+                psiLevel = Mathf.Clamp(value, 0, 60);
                 UpdateProgressVisuals();
             }
         }
@@ -75,7 +75,7 @@ namespace NovaSamples.UIControls
                 return;
             }
 
-            float normalizedValue = PsiLevel / 400f; // Normalize PSI level to a range of 0 to 1.
+            float normalizedValue = PsiLevel / 60f; // Normalize PSI level to a range of 0 to 1.
 
             switch (Style)
             {
