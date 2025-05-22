@@ -32,6 +32,10 @@ namespace Amused.XR
 
         [SerializeField] private Collider playerCoatTrigger;
 
+        private Coroutine delayedDeactivateCoroutine;
+        private Coroutine delayedActivateCoroutine;
+        private int previousStep = -1;
+
         private readonly Dictionary<int, bool> autoProceedSteps = new Dictionary<int, bool>
         {
             { 0, true },   // onboarding_1a
@@ -56,14 +60,34 @@ namespace Amused.XR
         {
             instructorNPC = npcController;
             onboardingController = controller;
+            DeactivateAllOnboardingObjects();
         }
 
         public void ExecuteStep(int step)
         {
             bool shouldAutoProceed = autoProceedSteps.TryGetValue(step, out var auto) && auto;
 
-            DeactivateAllOnboardingObjects();
+            // Always deactivate EVERYTHING immediately—no leftovers
+            StartCoroutine(DelayedDeactivateAllObjects(2f));
 
+            // 1. Start NPC dialogue instantly
+            PlayDialogueForStep(step, shouldAutoProceed);
+
+            // 2. Deactivate previous interactable after 2 seconds
+            if (delayedDeactivateCoroutine != null)
+                StopCoroutine(delayedDeactivateCoroutine);
+            if (previousStep >= 0)
+                delayedDeactivateCoroutine = StartCoroutine(DelayedDeactivatePreviousStep(previousStep, 2f));
+            previousStep = step;
+
+            // 3. Spawn (activate) new interactable after 2 seconds
+            if (delayedActivateCoroutine != null)
+                StopCoroutine(delayedActivateCoroutine);
+            delayedActivateCoroutine = StartCoroutine(DelayedActivateCurrentStep(step, 2f));
+        }
+
+        private void PlayDialogueForStep(int step, bool shouldAutoProceed)
+        {
             switch (step)
             {
                 case 0:
@@ -77,34 +101,27 @@ namespace Amused.XR
                     break;
                 case 3:
                     instructorNPC.PlayDialogue("onboarding_2b", shouldAutoProceed);
-                    if (movementTriggerZone != null) movementTriggerZone.SetActive(true);
                     break;
                 case 4:
                     instructorNPC.PlayDialogue("onboarding_2c", shouldAutoProceed);
-                    if (yesButton != null) yesButton.SetActive(true);
                     break;
                 case 5:
                     instructorNPC.PlayDialogue("onboarding_3a", shouldAutoProceed);
                     break;
                 case 6:
                     instructorNPC.PlayDialogue("onboarding_3b", shouldAutoProceed);
-                    if (grabbableObject != null) grabbableObject.SetActive(true);
                     break;
                 case 7:
                     instructorNPC.PlayDialogue("onboarding_3c", shouldAutoProceed);
-                    if (leverObject != null) leverObject.SetActive(true);
                     break;
                 case 8:
-                    instructorNPC.PlayDialogue("onboarding_3d", shouldAutoProceed); // Valve
-                    if (valveObject != null) valveObject.SetActive(true);
+                    instructorNPC.PlayDialogue("onboarding_3d", shouldAutoProceed);
                     break;
                 case 9:
-                    instructorNPC.PlayDialogue("onboarding_3e", shouldAutoProceed); // Dial
-                    if (dialObject != null) dialObject.SetActive(true);
+                    instructorNPC.PlayDialogue("onboarding_3e", shouldAutoProceed);
                     break;
                 case 10:
-                    instructorNPC.PlayDialogue("onboarding_3f", shouldAutoProceed); // Slider
-                    if (sliderObject != null) sliderObject.SetActive(true);
+                    instructorNPC.PlayDialogue("onboarding_3f", shouldAutoProceed);
                     break;
                 case 11:
                     instructorNPC.PlayDialogue("onboarding_3g", shouldAutoProceed);
@@ -114,7 +131,6 @@ namespace Amused.XR
                     break;
                 case 13:
                     instructorNPC.PlayDialogue("onboarding_4b", shouldAutoProceed);
-                    ActivateButtons();
                     break;
                 case 14:
                     instructorNPC.PlayDialogue("onboarding_4b_no", shouldAutoProceed);
@@ -125,8 +141,6 @@ namespace Amused.XR
                     break;
                 case 16:
                     instructorNPC.PlayDialogue("osh_1a", shouldAutoProceed);
-                    if (coatObject != null) coatObject.SetActive(true);
-                    if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
                     break;
                 case 17:
                     instructorNPC.PlayDialogue("osh_1b_coat", shouldAutoProceed);
@@ -139,8 +153,6 @@ namespace Amused.XR
                     break;
                 case 20:
                     instructorNPC.PlayDialogue("osh_1b_gloves", shouldAutoProceed);
-                    if (leftGlove != null) leftGlove.SetActive(true);
-                    if (rightGlove != null) rightGlove.SetActive(true);
                     break;
                 case 21:
                     instructorNPC.PlayDialogue("osh_1c", shouldAutoProceed);
@@ -152,12 +164,117 @@ namespace Amused.XR
             }
         }
 
-        private void ActivateButtons()
+        private IEnumerator DelayedDeactivatePreviousStep(int step, float delay)
         {
-            if (yesButton != null) yesButton.SetActive(true);
-            if (noButton != null) noButton.SetActive(true);
+            yield return new WaitForSeconds(delay);
+
+            switch (step)
+            {
+                case 3:
+                    if (movementTriggerZone != null) movementTriggerZone.SetActive(false);
+                    break;
+                case 4:
+                    if (yesButton != null) yesButton.SetActive(false);
+                    break;
+                case 6:
+                    if (grabbableObject != null) grabbableObject.SetActive(false);
+                    break;
+                case 7:
+                    if (leverObject != null) leverObject.SetActive(false);
+                    break;
+                case 8:
+                    if (valveObject != null) valveObject.SetActive(false);
+                    break;
+                case 9:
+                    if (dialObject != null) dialObject.SetActive(false);
+                    break;
+                case 10:
+                    if (sliderObject != null) sliderObject.SetActive(false);
+                    break;
+                case 13:
+                    if (yesButton != null) yesButton.SetActive(false);
+                    if (noButton != null) noButton.SetActive(false);
+                    break;
+                case 16:
+                    if (coatObject != null) coatObject.SetActive(false);
+                    if (playerCoatTrigger != null) playerCoatTrigger.enabled = false;
+                    break;
+                case 20:
+                    if (leftGlove != null) leftGlove.SetActive(false);
+                    if (rightGlove != null) rightGlove.SetActive(false);
+                    break;
+            }
         }
 
+        private IEnumerator DelayedActivateCurrentStep(int step, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            switch (step)
+            {
+                case 3:
+                    if (movementTriggerZone != null) movementTriggerZone.SetActive(true);
+                    break;
+                case 4:
+                    if (yesButton != null) yesButton.SetActive(true);
+                    break;
+                case 6:
+                    if (grabbableObject != null) grabbableObject.SetActive(true);
+                    break;
+                case 7:
+                    if (leverObject != null) leverObject.SetActive(true);
+                    break;
+                case 8:
+                    if (valveObject != null) valveObject.SetActive(true);
+                    break;
+                case 9:
+                    if (dialObject != null) dialObject.SetActive(true);
+                    break;
+                case 10:
+                    if (sliderObject != null) sliderObject.SetActive(true);
+                    break;
+                case 13:
+                    if (yesButton != null) yesButton.SetActive(true);
+                    if (noButton != null) noButton.SetActive(true);
+                    break;
+                case 16:
+                    if (coatObject != null) coatObject.SetActive(true);
+                    if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
+                    break;
+                case 20:
+                    if (leftGlove != null) leftGlove.SetActive(true);
+                    if (rightGlove != null) rightGlove.SetActive(true);
+                    break;
+            }
+        }
+
+        private IEnumerator ResetAfterDialogue()
+        {
+            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
+            ResetAllTriggers();
+            onboardingController.ResetOnboarding();
+        }
+
+        private void ResetAllTriggers()
+        {
+            if (valveTrigger != null) valveTrigger.ResetTrigger();
+            if (dialTrigger != null) dialTrigger.ResetTrigger();
+            if (sliderTrigger != null) sliderTrigger.ResetTrigger();
+        }
+
+        private IEnumerator SwitchSceneAfterDialogue()
+        {
+            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
+            SceneManager.LoadScene("2.KnowledgeBuilding");
+        }
+
+        private IEnumerator DelayedDeactivateAllObjects(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            DeactivateAllOnboardingObjects();
+        }
+
+        // Optionally, deactivation on startup or to clear all objects at once
         private void DeactivateAllOnboardingObjects()
         {
             if (movementTriggerZone != null) movementTriggerZone.SetActive(false);
@@ -168,35 +285,10 @@ namespace Amused.XR
             if (sliderObject != null) sliderObject.SetActive(false);
             if (yesButton != null) yesButton.SetActive(false);
             if (noButton != null) noButton.SetActive(false);
-            // Deactivate any OSH objects here if needed
-        }
-
-        private IEnumerator ResetAfterDialogue()
-        {
-            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
-            ResetAllTriggers();
-            onboardingController.ResetOnboarding();
-        }
-
-        // Reset all triggers after onboarding reset
-        private void ResetAllTriggers()
-        {
-            if (valveTrigger != null) valveTrigger.ResetTrigger();
-            if (dialTrigger != null) dialTrigger.ResetTrigger();
-            if (sliderTrigger != null) sliderTrigger.ResetTrigger();
-            // Reset other triggers if you add more
-        }
-
-        private IEnumerator SwitchSceneAfterDialogue()
-        {
-            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
-            SceneManager.LoadScene("2.KnowledgeBuilding");
-        }
-
-        private IEnumerator EnableCoatWearColliderAfterDialogue()
-        {
-            yield return new WaitUntil(() => !instructorNPC.DialogueIsActive);
-            if (playerCoatTrigger != null) playerCoatTrigger.enabled = true;
+            if (coatObject != null) coatObject.SetActive(false);
+            if (leftGlove != null) leftGlove.SetActive(false);
+            if (rightGlove != null) rightGlove.SetActive(false);
+            if (playerCoatTrigger != null) playerCoatTrigger.enabled = false;
         }
     }
 }
