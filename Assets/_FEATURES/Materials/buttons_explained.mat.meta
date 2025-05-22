@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Assets/Medical_Male_01_facial.controller.meta
+guid: d3fd2671b28bdd248a30a1606fb77061
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+========
 guid: 632e4560ba8c73245b059407e7a9d21c
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+>>>>>>>> 897c08231a58a398f63c7478a2aa2f594a401d22:Assets/_FEATURES/Materials/buttons_explained.mat.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
