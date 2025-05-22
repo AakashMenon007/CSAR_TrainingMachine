@@ -1,9 +1,27 @@
-﻿title: Onboarding
+title: Onboarding
 ---
 
-<<declare $knows_anne_name = false as bool>>
+<<declare $knows_anne_name = false>>
+
+Welcome to the onboarding session of The CSAR Training Machine. In this session, we’ll introduce you to the basics of virtual reality, starting with movement. #line:1
 
 <<wait 2>>
 
-Welcome to the Onboarding session for the CSAR training machine experience! #line:0f9bcbe 
+To move around, use the left thumbstick. Push it forward, backward, left, or right to walk in the corresponding direction.#line:2
+To turn around, use the right thumbstick. Try it out now and get comfortable with moving and turning.#line:3
+If you need more clarification, you can watch the video tutorial playing nearby for a better understanding.#line:4
+<<wait 10>>
+Great! Now that you’ve got the basics of movement, let’s try interacting with objects.#line:5
+Look towards your right-hand side. You’ll see some interactable objects like cubes or spheres.#line:6 
+Try grabbing one of them by using the trigger button on your right controller. Go ahead and give it a try! Remember, the video tutorial can also help if you’re unsure.#line:7
+<<wait  15>>
+Well done! You’re getting the hang of this.#line:8
+Next, let’s explore another type of interaction. Look towards your left-hand side. There, you’ll find interactable knobs, levers, sliders, and buttons. #line:9
+Try experimenting with these by interacting with them using your controllers. Move them around, press buttons, and see how they respond.#line:10
+<<wait 18>>
+Excellent! You’ve completed the basic onboarding session. You’re now ready to take on more advanced tasks in The CSAR Training Machine. Great work!#line:11
+To proceed to the next session, which will focus on knowledge building, move to the highlighted hover zone ahead.#line:12
+Once you step into the zone, you’ll automatically be taken to the next part of your training.#line:13
+
+
 ===
