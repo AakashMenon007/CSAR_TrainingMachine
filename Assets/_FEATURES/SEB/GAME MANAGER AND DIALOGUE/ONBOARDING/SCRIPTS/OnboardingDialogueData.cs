@@ -17,7 +17,13 @@ namespace Amused.XR
             { "onboarding_3b", "Try picking up the green cube from the table." }, //6
             { "onboarding_3c", "Nice job, levers work in similar way, try grabbing the lever and switch its position." },
             { "onboarding_3d", "Well done! Now, try grabbing the valve and rotate it." },
-            { "onboarding_3e", "Great! Now you should be ready for the actual CSAR practice." },
+
+            // NEW STEPS:
+            { "onboarding_3e", "Try rotating the dial. Dials like this are useful for adjusting things such as pH levels. Give it a spin." },
+            { "onboarding_3f", "Move the slider back and forth. Sliders are great for controlling things like temperature. Try sliding it now." },
+
+            { "onboarding_3g", "Great! Now you should be ready for the actual CSAR practice." }, //old 3e
+
             { "onboarding_4a", "This experience consists of few stages. You will learn OSH, then you will be introduced to how the machines operate, and after that there will be a little quiz testing your knowledge." },
             { "onboarding_4b", "If you feel ready to start, press Yes. If you would like to repeat the onboarding, press No." },
             { "onboarding_4b_no", "Restarting onboarding tutorial..." },

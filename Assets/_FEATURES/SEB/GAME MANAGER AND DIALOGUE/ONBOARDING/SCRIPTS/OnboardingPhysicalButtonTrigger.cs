@@ -37,10 +37,11 @@ namespace Amused.XR
             switch (buttonType)
             {
                 case ButtonType.Yes:
-                    if (currentStep == 12)
+                    if (currentStep == 14)
                     {
                         Debug.Log("[Button] YES.");
-                        FindObjectOfType<OnboardingStepsHandler>().ExecuteStep(14);
+                        onboardingController.SetStep(15);
+                        onboardingController.ProceedToNextStep();
                     }
                     else
                     {
@@ -50,10 +51,11 @@ namespace Amused.XR
                     break;
 
                 case ButtonType.No:
-                    Debug.Log("[Button] NO — proceeding to step 12 (restart line).");
+                    Debug.Log("[Button] NO — proceeding to (restart line).");
                     onboardingController.ProceedToNextStep();
                     break;
             }
+
 
             //gameObject.SetActive(false);
         }

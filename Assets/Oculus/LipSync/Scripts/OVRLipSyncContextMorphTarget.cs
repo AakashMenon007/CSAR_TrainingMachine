@@ -93,7 +93,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     void Start()
     {
         string currentScene = SceneManager.GetActiveScene().name;
-        if (currentScene == "Warehouse_Seb_System_Onboarding_OSH")
+        if (currentScene == "1.Onboarding")
         {
             blendWeightMultiplier = 1.0f;
             disableTestKeys = true;
