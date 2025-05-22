@@ -1,14 +1,15 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class DelayedDeactivate : MonoBehaviour
 {
-    [Tooltip("GameObject to be turned off after delay.")]
-    public GameObject objectToTurnOff;
+    [Tooltip("List of GameObjects to be turned off after delay.")]
+    public List<GameObject> objectsToTurnOff = new List<GameObject>();
 
     [Tooltip("GameObject to be turned on after delay.")]
     public GameObject objectToTurnOn;
 
-    [Tooltip("Time in seconds before the GameObject is turned off.")]
+    [Tooltip("Time in seconds before the GameObjects are turned off.")]
     public float delayTime = 2.0f;
 
     void Start()
@@ -19,10 +20,13 @@ public class DelayedDeactivate : MonoBehaviour
 
     void TurnOffAndTurnOn()
     {
-        // Deactivate the object to turn off
-        if (objectToTurnOff != null)
+        // Deactivate all objects in the list
+        foreach (GameObject obj in objectsToTurnOff)
         {
-            objectToTurnOff.SetActive(false);
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
         }
 
         // Activate the object to turn on
@@ -32,4 +36,3 @@ public class DelayedDeactivate : MonoBehaviour
         }
     }
 }
-
