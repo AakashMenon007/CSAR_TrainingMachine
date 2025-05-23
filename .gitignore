@@ -87,3 +87,11 @@ ProjectSettings/ShaderGraphSettings.asset
 /ProjectSettings/EditorBuildSettings.asset
 /ProjectSettings/ShaderGraphSettings.asset
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
+/Assets/Resources/OVRBuildConfig.asset
+/Assets/Resources/OVRBuildConfig.asset.meta
+/Assets/Settings/High_PipelineAsset.asset
+/Assets/Settings/Project Configuration/Performance URP Config.asset
+/Assets/Settings/Project Configuration/Quality URP Config.asset
+/Assets/Settings/Medium_PipelineAsset.asset
+/Assets/Settings/Very High_PipelineAsset.asset
+/ProjectSettings/ProjectSettings.asset
