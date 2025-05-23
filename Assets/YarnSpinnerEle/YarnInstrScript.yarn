@@ -178,7 +178,7 @@ Do you want to repeat any of the components? You will have assessment at the end
         <<jump AirBlower>>
     -> Flow Measurement
         <<jump FlowMeasurement>>
-    -> Done repeating components
+    -> Finished knowledge base
     <<set $repeat = false>>
     <<jump Empty>>
 

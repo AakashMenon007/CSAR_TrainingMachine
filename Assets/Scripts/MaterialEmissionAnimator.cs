@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Renderer))]
@@ -8,7 +8,7 @@ public class MaterialEmissionAnimator : MonoBehaviour
     [SerializeField] private Color emissionColor = Color.white;
     [SerializeField] private float maxEmissionIntensity = 2.0f;
     [SerializeField] private float minEmissionIntensity = 0.0f;
-    
+
     [Header("Animation Settings")]
     [SerializeField] private float pulseDuration = 1.0f;
     [SerializeField] private Ease pulseEaseType = Ease.InOutSine;
@@ -16,43 +16,63 @@ public class MaterialEmissionAnimator : MonoBehaviour
     [SerializeField] private bool loopAnimation = true;
     [SerializeField] private int loopCount = -1; // -1 for infinite
     [SerializeField] private LoopType loopType = LoopType.Yoyo;
-    
+
     // Material property references
     private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
     private static readonly string EmissionKeyword = "_EMISSION";
-    
+
     // Component references
     private Renderer _renderer;
     private Material _material;
     private Sequence _animationSequence;
-    
+
     private void Awake()
     {
         // Get the renderer component
         _renderer = GetComponent<Renderer>();
-        
+
         // Get the material (creates an instance if shared)
         _material = _renderer.material;
-        
-        // Ensure emission is enabled on the material
-        _material.EnableKeyword(EmissionKeyword);
-        
+
+        // Ensure emission is supported and enabled on the material
+        SetupEmission(); // ✅ Use helper method to prepare material for emission
+
         // Set initial emission to minimum
         SetEmissionIntensity(minEmissionIntensity);
-        
+
         // Start animation if set to play on awake
         if (playOnAwake)
         {
             StartEmissionAnimation();
         }
     }
-    
+
+    /// <summary>
+    /// Ensures emission keyword is enabled and lighting flags are properly set for URP/Android
+    /// </summary>
+    private void SetupEmission()
+    {
+        if (_material.HasProperty(EmissionColor))
+        {
+            // ✅ Explicitly enable the emission keyword for build compatibility
+            _material.EnableKeyword(EmissionKeyword);
+
+            // ✅ Ensure global illumination flag is set for real-time emission support
+            _material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+        }
+        else
+        {
+            Debug.LogWarning("Material does not support _EmissionColor: " + _material.name);
+        }
+    }
+
     private void OnDestroy()
     {
         // Clean up the DOTween sequence when object is destroyed
         _animationSequence?.Kill();
-        
+
         // Clean up material instance if needed
+#if UNITY_EDITOR
         if (_material != null && !Application.isPlaying)
         {
             DestroyImmediate(_material);
@@ -61,8 +81,14 @@ public class MaterialEmissionAnimator : MonoBehaviour
         {
             Destroy(_material);
         }
+#else
+        if (_material != null)
+        {
+            Destroy(_material);
+        }
+#endif
     }
-    
+
     /// <summary>
     /// Set the emission intensity of the material
     /// </summary>
@@ -71,14 +97,14 @@ public class MaterialEmissionAnimator : MonoBehaviour
     {
         if (_material != null)
         {
-            // Calculate emission color with intensity
-            Color emissionWithIntensity = emissionColor * intensity;
-            
+            // ✅ Apply gamma correction for URP and Android builds
+            Color emissionWithIntensity = emissionColor * Mathf.LinearToGammaSpace(intensity);
+
             // Set the emission color property
             _material.SetColor(EmissionColor, emissionWithIntensity);
         }
     }
-    
+
     /// <summary>
     /// Start the emission animation sequence
     /// </summary>
@@ -86,10 +112,10 @@ public class MaterialEmissionAnimator : MonoBehaviour
     {
         // Kill any existing animation
         _animationSequence?.Kill();
-        
+
         // Create a new DOTween sequence
         _animationSequence = DOTween.Sequence();
-        
+
         // Add the emission intensity animation
         _animationSequence.Append(
             DOTween.To(
@@ -99,7 +125,7 @@ public class MaterialEmissionAnimator : MonoBehaviour
                 pulseDuration / 2
             ).SetEase(pulseEaseType)
         );
-        
+
         // Add the reverse animation if using Yoyo loop
         if (loopType == LoopType.Yoyo)
         {
@@ -112,17 +138,17 @@ public class MaterialEmissionAnimator : MonoBehaviour
                 ).SetEase(pulseEaseType)
             );
         }
-        
+
         // Configure looping
         if (loopAnimation)
         {
             _animationSequence.SetLoops(loopCount, loopType);
         }
-        
+
         // Play the sequence
         _animationSequence.Play();
     }
-    
+
     /// <summary>
     /// Stop the emission animation
     /// </summary>
@@ -131,7 +157,7 @@ public class MaterialEmissionAnimator : MonoBehaviour
         _animationSequence?.Kill();
         SetEmissionIntensity(minEmissionIntensity);
     }
-    
+
     /// <summary>
     /// Highlight with maximum emission instantly (no animation)
     /// </summary>
@@ -140,7 +166,7 @@ public class MaterialEmissionAnimator : MonoBehaviour
         StopEmissionAnimation();
         SetEmissionIntensity(maxEmissionIntensity);
     }
-    
+
     /// <summary>
     /// Change the emission color at runtime
     /// </summary>
@@ -148,11 +174,11 @@ public class MaterialEmissionAnimator : MonoBehaviour
     public void ChangeEmissionColor(Color newColor)
     {
         emissionColor = newColor;
-        
+
         // Update current emission with new color
-        float currentIntensity = _material.GetColor(EmissionColor).maxColorComponent / 
+        float currentIntensity = _material.GetColor(EmissionColor).maxColorComponent /
                                emissionColor.maxColorComponent;
-        
+
         SetEmissionIntensity(currentIntensity);
     }
 }
