@@ -5,25 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Start Menu.unity
     guid: 358aaaf1451c72b4eba321bd509ea9d3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/About.unity
     guid: 9216bc69994985d4097b73c08147520f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/1.Onboarding.unity
     guid: a7aa943eda849d04f9a0befa7cfdb61c
   - enabled: 1
     path: Assets/Scenes/2.KnowledgeBuilding.unity
     guid: 9ed906e732d15ad4f9827625862c25c9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/3.Guided Practice.unity
     guid: fd2c02f7bc109ae4f9cd8d69eded262e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/4.Independant Practice.unity
     guid: 9f97abf40a1905f47bc656b3286a4f67
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/5.Assisment_Airtable.unity
     guid: f38c57ea23198af429a48e799dc599b6
   m_configObjects:
