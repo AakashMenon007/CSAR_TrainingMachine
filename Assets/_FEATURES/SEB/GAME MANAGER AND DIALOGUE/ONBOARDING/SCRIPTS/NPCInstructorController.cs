@@ -66,18 +66,18 @@ namespace Amused.XR
         /// </summary>
         public void PlayDialogue(string lineKey, bool autoProceed)
         {
-            Debug.Log($"[NPCInstructorController] PlayDialogue START. instructorNPC: {this}, npcHead: {npcHead}, lineKey: {lineKey}");
+            //Debug.Log($"[NPCInstructorController] PlayDialogue START. instructorNPC: {this}, npcHead: {npcHead}, lineKey: {lineKey}");
             Debug.LogWarning($"[PlayDialogue] lineKey = {lineKey}, autoProceed = {autoProceed}");
             // Reset progression tracking
             audioFinished = false;
             textFinished = false;
             shouldAutoProceed = autoProceed;
 
-            if (autoProceed && lineKey == "onboarding_3b")
+/*            if (autoProceed && lineKey == "onboarding_3b")
             {
                 Debug.LogError("[FATAL] Step onboarding_3b is wrongly marked as autoProceed. Fix immediately.");
             }
-
+*/
             // Retrieve the dialogue text
             string text = OnboardingDialogueData.GetText(lineKey);
             Debug.Log($"[NPCInstructorController] Retrieved text: {text}");
@@ -137,14 +137,14 @@ namespace Amused.XR
             }
 
             // Trigger NPC talking animation
-            if (instructorAnimator != null)
+/*            if (instructorAnimator != null)
             {
                 instructorAnimator.SetTrigger("Talk");
             }
             else
             {
                 Debug.LogWarning("[NPCInstructorController] No Animator assigned.");
-            }
+            }*/
 
             // Check for immediate transition (in case both are already done)
             CheckProceedToNextStep();
